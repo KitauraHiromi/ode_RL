@@ -1,0 +1,523 @@
+On branch master
+このブランチは 'origin/master' よりも1コミット進んでいます。
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+
+	modified:   ../../GIMPACT/Makefile
+	modified:   ../../GIMPACT/include/GIMPACT/Makefile
+	modified:   ../../GIMPACT/include/Makefile
+	modified:   ../../GIMPACT/src/Makefile
+	modified:   ../../Makefile
+	modified:   ../../OPCODE/.libs/libOPCODE.a
+	modified:   ../../OPCODE/Ice/.libs/libIce.a
+	modified:   ../../OPCODE/Ice/IceAABB.lo
+	modified:   ../../OPCODE/Ice/IceAABB.o
+	modified:   ../../OPCODE/Ice/IceContainer.lo
+	modified:   ../../OPCODE/Ice/IceContainer.o
+	modified:   ../../OPCODE/Ice/IceHPoint.lo
+	modified:   ../../OPCODE/Ice/IceHPoint.o
+	modified:   ../../OPCODE/Ice/IceIndexedTriangle.lo
+	modified:   ../../OPCODE/Ice/IceIndexedTriangle.o
+	modified:   ../../OPCODE/Ice/IceMatrix3x3.lo
+	modified:   ../../OPCODE/Ice/IceMatrix3x3.o
+	modified:   ../../OPCODE/Ice/IceMatrix4x4.lo
+	modified:   ../../OPCODE/Ice/IceMatrix4x4.o
+	modified:   ../../OPCODE/Ice/IceOBB.lo
+	modified:   ../../OPCODE/Ice/IceOBB.o
+	modified:   ../../OPCODE/Ice/IcePlane.lo
+	modified:   ../../OPCODE/Ice/IcePlane.o
+	modified:   ../../OPCODE/Ice/IcePoint.lo
+	modified:   ../../OPCODE/Ice/IcePoint.o
+	modified:   ../../OPCODE/Ice/IceRandom.lo
+	modified:   ../../OPCODE/Ice/IceRandom.o
+	modified:   ../../OPCODE/Ice/IceRay.lo
+	modified:   ../../OPCODE/Ice/IceRay.o
+	modified:   ../../OPCODE/Ice/IceRevisitedRadix.lo
+	modified:   ../../OPCODE/Ice/IceRevisitedRadix.o
+	modified:   ../../OPCODE/Ice/IceSegment.lo
+	modified:   ../../OPCODE/Ice/IceSegment.o
+	modified:   ../../OPCODE/Ice/IceTriangle.lo
+	modified:   ../../OPCODE/Ice/IceTriangle.o
+	modified:   ../../OPCODE/Ice/IceUtils.lo
+	modified:   ../../OPCODE/Ice/IceUtils.o
+	modified:   ../../OPCODE/Ice/Makefile
+	modified:   ../../OPCODE/Makefile
+	modified:   ../../OPCODE/OPC_AABBCollider.lo
+	modified:   ../../OPCODE/OPC_AABBCollider.o
+	modified:   ../../OPCODE/OPC_AABBTree.lo
+	modified:   ../../OPCODE/OPC_AABBTree.o
+	modified:   ../../OPCODE/OPC_BaseModel.lo
+	modified:   ../../OPCODE/OPC_BaseModel.o
+	modified:   ../../OPCODE/OPC_Collider.lo
+	modified:   ../../OPCODE/OPC_Collider.o
+	modified:   ../../OPCODE/OPC_Common.lo
+	modified:   ../../OPCODE/OPC_Common.o
+	modified:   ../../OPCODE/OPC_HybridModel.lo
+	modified:   ../../OPCODE/OPC_HybridModel.o
+	modified:   ../../OPCODE/OPC_LSSCollider.lo
+	modified:   ../../OPCODE/OPC_LSSCollider.o
+	modified:   ../../OPCODE/OPC_MeshInterface.lo
+	modified:   ../../OPCODE/OPC_MeshInterface.o
+	modified:   ../../OPCODE/OPC_Model.lo
+	modified:   ../../OPCODE/OPC_Model.o
+	modified:   ../../OPCODE/OPC_OBBCollider.lo
+	modified:   ../../OPCODE/OPC_OBBCollider.o
+	modified:   ../../OPCODE/OPC_OptimizedTree.lo
+	modified:   ../../OPCODE/OPC_OptimizedTree.o
+	modified:   ../../OPCODE/OPC_Picking.lo
+	modified:   ../../OPCODE/OPC_Picking.o
+	modified:   ../../OPCODE/OPC_PlanesCollider.lo
+	modified:   ../../OPCODE/OPC_PlanesCollider.o
+	modified:   ../../OPCODE/OPC_RayCollider.lo
+	modified:   ../../OPCODE/OPC_RayCollider.o
+	modified:   ../../OPCODE/OPC_SphereCollider.lo
+	modified:   ../../OPCODE/OPC_SphereCollider.o
+	modified:   ../../OPCODE/OPC_TreeBuilders.lo
+	modified:   ../../OPCODE/OPC_TreeBuilders.o
+	modified:   ../../OPCODE/OPC_TreeCollider.lo
+	modified:   ../../OPCODE/OPC_TreeCollider.o
+	modified:   ../../OPCODE/OPC_VolumeCollider.lo
+	modified:   ../../OPCODE/OPC_VolumeCollider.o
+	modified:   ../../OPCODE/Opcode.lo
+	modified:   ../../OPCODE/Opcode.o
+	modified:   ../../autom4te.cache/requests
+	modified:   ../../config.log
+	modified:   ../../config.status
+	modified:   ../../drawstuff/Makefile
+	modified:   ../../drawstuff/dstest/Makefile
+	modified:   ../../drawstuff/dstest/dstest
+	modified:   ../../drawstuff/dstest/dstest.o
+	modified:   ../../drawstuff/src/.libs/libdrawstuff.a
+	modified:   ../../drawstuff/src/Makefile
+	modified:   ../../drawstuff/src/drawstuff.lo
+	modified:   ../../drawstuff/src/drawstuff.o
+	modified:   ../../drawstuff/src/x11.lo
+	modified:   ../../drawstuff/src/x11.o
+	modified:   ../../include/Makefile
+	modified:   ../../include/drawstuff/Makefile
+	modified:   ../../include/ode/Makefile
+	modified:   ../../include/ode/common.h
+	modified:   ../../libccd/config.log
+	modified:   ../../libccd/config.status
+	modified:   ../../libccd/libtool
+	modified:   ../../libccd/src/ccd/config.h
+	modified:   ../../libtool
+	modified:   ../../ode-config
+	modified:   ../../ode.pc
+	modified:   ../../ode/Makefile
+	modified:   ../../ode/demo/.deps/demo_I.Po
+	modified:   ../../ode/demo/Makefile
+	modified:   ../../ode/demo/demo_I
+	modified:   ../../ode/demo/demo_I.cpp
+	modified:   ../../ode/demo/demo_I.o
+	modified:   ../../ode/demo/demo_basket
+	modified:   ../../ode/demo/demo_basket.o
+	modified:   ../../ode/demo/demo_boxstack
+	modified:   ../../ode/demo/demo_boxstack.o
+	modified:   ../../ode/demo/demo_buggy
+	modified:   ../../ode/demo/demo_buggy.o
+	modified:   ../../ode/demo/demo_cards
+	modified:   ../../ode/demo/demo_cards.o
+	modified:   ../../ode/demo/demo_chain1
+	modified:   ../../ode/demo/demo_chain1.o
+	modified:   ../../ode/demo/demo_chain2
+	modified:   ../../ode/demo/demo_chain2.o
+	modified:   ../../ode/demo/demo_collision
+	modified:   ../../ode/demo/demo_collision.o
+	modified:   ../../ode/demo/demo_convex_cd
+	modified:   ../../ode/demo/demo_convex_cd.o
+	modified:   ../../ode/demo/demo_crash
+	modified:   ../../ode/demo/demo_crash.o
+	modified:   ../../ode/demo/demo_cyl
+	modified:   ../../ode/demo/demo_cyl.o
+	modified:   ../../ode/demo/demo_cylvssphere
+	modified:   ../../ode/demo/demo_cylvssphere.o
+	modified:   ../../ode/demo/demo_feedback
+	modified:   ../../ode/demo/demo_feedback.o
+	modified:   ../../ode/demo/demo_friction
+	modified:   ../../ode/demo/demo_friction.o
+	modified:   ../../ode/demo/demo_gyroscopic
+	modified:   ../../ode/demo/demo_gyroscopic.o
+	modified:   ../../ode/demo/demo_heightfield
+	modified:   ../../ode/demo/demo_heightfield.o
+	modified:   ../../ode/demo/demo_hinge
+	modified:   ../../ode/demo/demo_hinge.o
+	modified:   ../../ode/demo/demo_jointPR
+	modified:   ../../ode/demo/demo_jointPR.o
+	modified:   ../../ode/demo/demo_jointPU
+	modified:   ../../ode/demo/demo_jointPU.o
+	modified:   ../../ode/demo/demo_joints
+	modified:   ../../ode/demo/demo_joints.o
+	modified:   ../../ode/demo/demo_kinematic
+	modified:   ../../ode/demo/demo_kinematic.o
+	modified:   ../../ode/demo/demo_motion
+	modified:   ../../ode/demo/demo_motion.o
+	modified:   ../../ode/demo/demo_motor
+	modified:   ../../ode/demo/demo_motor.o
+	modified:   ../../ode/demo/demo_moving_convex
+	modified:   ../../ode/demo/demo_moving_convex.o
+	modified:   ../../ode/demo/demo_moving_trimesh
+	modified:   ../../ode/demo/demo_moving_trimesh.o
+	modified:   ../../ode/demo/demo_ode
+	modified:   ../../ode/demo/demo_ode.o
+	modified:   ../../ode/demo/demo_piston
+	modified:   ../../ode/demo/demo_piston.o
+	modified:   ../../ode/demo/demo_plane2d
+	modified:   ../../ode/demo/demo_plane2d.o
+	modified:   ../../ode/demo/demo_slider
+	modified:   ../../ode/demo/demo_slider.o
+	modified:   ../../ode/demo/demo_space
+	modified:   ../../ode/demo/demo_space.o
+	modified:   ../../ode/demo/demo_space_stress
+	modified:   ../../ode/demo/demo_space_stress.o
+	modified:   ../../ode/demo/demo_step
+	modified:   ../../ode/demo/demo_step.o
+	modified:   ../../ode/demo/demo_tracks
+	modified:   ../../ode/demo/demo_tracks.o
+	modified:   ../../ode/demo/demo_trimesh
+	modified:   ../../ode/demo/demo_trimesh.o
+	modified:   ../../ode/src/.libs/libfast.a
+	modified:   ../../ode/src/.libs/libode.a
+	modified:   ../../ode/src/.libs/libode.lai
+	modified:   ../../ode/src/Makefile
+	modified:   ../../ode/src/array.lo
+	modified:   ../../ode/src/array.o
+	modified:   ../../ode/src/box.lo
+	modified:   ../../ode/src/box.o
+	modified:   ../../ode/src/capsule.lo
+	modified:   ../../ode/src/capsule.o
+	modified:   ../../ode/src/collision_cylinder_box.lo
+	modified:   ../../ode/src/collision_cylinder_box.o
+	modified:   ../../ode/src/collision_cylinder_plane.lo
+	modified:   ../../ode/src/collision_cylinder_plane.o
+	modified:   ../../ode/src/collision_cylinder_sphere.lo
+	modified:   ../../ode/src/collision_cylinder_sphere.o
+	modified:   ../../ode/src/collision_cylinder_trimesh.lo
+	modified:   ../../ode/src/collision_cylinder_trimesh.o
+	modified:   ../../ode/src/collision_kernel.lo
+	modified:   ../../ode/src/collision_kernel.o
+	modified:   ../../ode/src/collision_quadtreespace.lo
+	modified:   ../../ode/src/collision_quadtreespace.o
+	modified:   ../../ode/src/collision_sapspace.lo
+	modified:   ../../ode/src/collision_sapspace.o
+	modified:   ../../ode/src/collision_space.lo
+	modified:   ../../ode/src/collision_space.o
+	modified:   ../../ode/src/collision_transform.lo
+	modified:   ../../ode/src/collision_transform.o
+	modified:   ../../ode/src/collision_trimesh_box.lo
+	modified:   ../../ode/src/collision_trimesh_box.o
+	modified:   ../../ode/src/collision_trimesh_ccylinder.lo
+	modified:   ../../ode/src/collision_trimesh_ccylinder.o
+	modified:   ../../ode/src/collision_trimesh_disabled.lo
+	modified:   ../../ode/src/collision_trimesh_disabled.o
+	modified:   ../../ode/src/collision_trimesh_distance.lo
+	modified:   ../../ode/src/collision_trimesh_distance.o
+	modified:   ../../ode/src/collision_trimesh_opcode.lo
+	modified:   ../../ode/src/collision_trimesh_opcode.o
+	modified:   ../../ode/src/collision_trimesh_plane.lo
+	modified:   ../../ode/src/collision_trimesh_plane.o
+	modified:   ../../ode/src/collision_trimesh_ray.lo
+	modified:   ../../ode/src/collision_trimesh_ray.o
+	modified:   ../../ode/src/collision_trimesh_sphere.lo
+	modified:   ../../ode/src/collision_trimesh_sphere.o
+	modified:   ../../ode/src/collision_trimesh_trimesh.lo
+	modified:   ../../ode/src/collision_trimesh_trimesh.o
+	modified:   ../../ode/src/collision_trimesh_trimesh_new.lo
+	modified:   ../../ode/src/collision_trimesh_trimesh_new.o
+	modified:   ../../ode/src/collision_util.lo
+	modified:   ../../ode/src/collision_util.o
+	modified:   ../../ode/src/convex.lo
+	modified:   ../../ode/src/convex.o
+	modified:   ../../ode/src/cylinder.lo
+	modified:   ../../ode/src/cylinder.o
+	modified:   ../../ode/src/error.lo
+	modified:   ../../ode/src/error.o
+	modified:   ../../ode/src/export-dif.lo
+	modified:   ../../ode/src/export-dif.o
+	modified:   ../../ode/src/fastdot.lo
+	modified:   ../../ode/src/fastdot.o
+	modified:   ../../ode/src/fastldlt.lo
+	modified:   ../../ode/src/fastldlt.o
+	modified:   ../../ode/src/fastlsolve.lo
+	modified:   ../../ode/src/fastlsolve.o
+	modified:   ../../ode/src/fastltsolve.lo
+	modified:   ../../ode/src/fastltsolve.o
+	modified:   ../../ode/src/heightfield.lo
+	modified:   ../../ode/src/heightfield.o
+	modified:   ../../ode/src/joints/.libs/libjoints.a
+	modified:   ../../ode/src/joints/Makefile
+	modified:   ../../ode/src/joints/amotor.lo
+	modified:   ../../ode/src/joints/amotor.o
+	modified:   ../../ode/src/joints/ball.lo
+	modified:   ../../ode/src/joints/ball.o
+	modified:   ../../ode/src/joints/contact.lo
+	modified:   ../../ode/src/joints/contact.o
+	modified:   ../../ode/src/joints/fixed.lo
+	modified:   ../../ode/src/joints/fixed.o
+	modified:   ../../ode/src/joints/hinge.lo
+	modified:   ../../ode/src/joints/hinge.o
+	modified:   ../../ode/src/joints/hinge2.lo
+	modified:   ../../ode/src/joints/hinge2.o
+	modified:   ../../ode/src/joints/joint.lo
+	modified:   ../../ode/src/joints/joint.o
+	modified:   ../../ode/src/joints/lmotor.lo
+	modified:   ../../ode/src/joints/lmotor.o
+	modified:   ../../ode/src/joints/null.lo
+	modified:   ../../ode/src/joints/null.o
+	modified:   ../../ode/src/joints/piston.lo
+	modified:   ../../ode/src/joints/piston.o
+	modified:   ../../ode/src/joints/plane2d.lo
+	modified:   ../../ode/src/joints/plane2d.o
+	modified:   ../../ode/src/joints/pr.lo
+	modified:   ../../ode/src/joints/pr.o
+	modified:   ../../ode/src/joints/pu.lo
+	modified:   ../../ode/src/joints/pu.o
+	modified:   ../../ode/src/joints/slider.lo
+	modified:   ../../ode/src/joints/slider.o
+	modified:   ../../ode/src/joints/universal.lo
+	modified:   ../../ode/src/joints/universal.o
+	modified:   ../../ode/src/lcp.lo
+	modified:   ../../ode/src/lcp.o
+	modified:   ../../ode/src/libode.la
+	modified:   ../../ode/src/mass.lo
+	modified:   ../../ode/src/mass.o
+	modified:   ../../ode/src/mat.lo
+	modified:   ../../ode/src/mat.o
+	modified:   ../../ode/src/matrix.lo
+	modified:   ../../ode/src/matrix.o
+	modified:   ../../ode/src/memory.lo
+	modified:   ../../ode/src/memory.o
+	modified:   ../../ode/src/misc.lo
+	modified:   ../../ode/src/misc.o
+	modified:   ../../ode/src/nextafterf.lo
+	modified:   ../../ode/src/nextafterf.o
+	modified:   ../../ode/src/obstack.lo
+	modified:   ../../ode/src/obstack.o
+	modified:   ../../ode/src/ode.lo
+	modified:   ../../ode/src/ode.o
+	modified:   ../../ode/src/odeinit.lo
+	modified:   ../../ode/src/odeinit.o
+	modified:   ../../ode/src/odemath.lo
+	modified:   ../../ode/src/odemath.o
+	modified:   ../../ode/src/plane.lo
+	modified:   ../../ode/src/plane.o
+	modified:   ../../ode/src/quickstep.lo
+	modified:   ../../ode/src/quickstep.o
+	modified:   ../../ode/src/ray.lo
+	modified:   ../../ode/src/ray.o
+	modified:   ../../ode/src/rotation.lo
+	modified:   ../../ode/src/rotation.o
+	modified:   ../../ode/src/sphere.lo
+	modified:   ../../ode/src/sphere.o
+	modified:   ../../ode/src/step.lo
+	modified:   ../../ode/src/step.o
+	modified:   ../../ode/src/timer.lo
+	modified:   ../../ode/src/timer.o
+	modified:   ../../ode/src/util.lo
+	modified:   ../../ode/src/util.o
+	modified:   ../../ou/config.log
+	modified:   ../../ou/config.status
+	modified:   RL (untracked content)
+	deleted:    arm_robot3.cpp
+	deleted:    arm_robot3.o
+	deleted:    lib/arm_robot3.cpp
+	deleted:    lib/arm_robot3.hpp
+	deleted:    lib/tcp.cpp
+	deleted:    lib/tcp.hpp
+	deleted:    lib/tcp.py
+	deleted:    lib/tcp.pyc
+	deleted:    lib/world.cpp
+	deleted:    lib/world.hpp
+	deleted:    process_test/Makefile
+	deleted:    process_test/TcpLib.hpp
+	deleted:    process_test/client
+	deleted:    process_test/client.cpp
+	deleted:    process_test/server
+	deleted:    process_test/server.cpp
+	deleted:    process_test/server.py
+	deleted:    robot/rolling_robot1.o
+	modified:   ../../tests/Makefile
+	modified:   ../../tests/UnitTest++/Makefile
+	modified:   ../../tests/UnitTest++/src/Makefile
+	modified:   ../../tests/UnitTest++/src/Posix/Makefile
+	modified:   ../../tests/UnitTest++/src/Win32/Makefile
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	../../../Boost.NumPy/
+	../../../RL_framework/
+	../../../dmp/
+	../../../gym/
+	../../OPCODE/.libs/OPC_AABBCollider.o
+	../../OPCODE/.libs/OPC_AABBTree.o
+	../../OPCODE/.libs/OPC_BaseModel.o
+	../../OPCODE/.libs/OPC_Collider.o
+	../../OPCODE/.libs/OPC_Common.o
+	../../OPCODE/.libs/OPC_HybridModel.o
+	../../OPCODE/.libs/OPC_LSSCollider.o
+	../../OPCODE/.libs/OPC_MeshInterface.o
+	../../OPCODE/.libs/OPC_Model.o
+	../../OPCODE/.libs/OPC_OBBCollider.o
+	../../OPCODE/.libs/OPC_OptimizedTree.o
+	../../OPCODE/.libs/OPC_Picking.o
+	../../OPCODE/.libs/OPC_PlanesCollider.o
+	../../OPCODE/.libs/OPC_RayCollider.o
+	../../OPCODE/.libs/OPC_SphereCollider.o
+	../../OPCODE/.libs/OPC_TreeBuilders.o
+	../../OPCODE/.libs/OPC_TreeCollider.o
+	../../OPCODE/.libs/OPC_VolumeCollider.o
+	../../OPCODE/.libs/Opcode.o
+	../../OPCODE/Ice/.libs/IceAABB.o
+	../../OPCODE/Ice/.libs/IceContainer.o
+	../../OPCODE/Ice/.libs/IceHPoint.o
+	../../OPCODE/Ice/.libs/IceIndexedTriangle.o
+	../../OPCODE/Ice/.libs/IceMatrix3x3.o
+	../../OPCODE/Ice/.libs/IceMatrix4x4.o
+	../../OPCODE/Ice/.libs/IceOBB.o
+	../../OPCODE/Ice/.libs/IcePlane.o
+	../../OPCODE/Ice/.libs/IcePoint.o
+	../../OPCODE/Ice/.libs/IceRandom.o
+	../../OPCODE/Ice/.libs/IceRay.o
+	../../OPCODE/Ice/.libs/IceRevisitedRadix.o
+	../../OPCODE/Ice/.libs/IceSegment.o
+	../../OPCODE/Ice/.libs/IceTriangle.o
+	../../OPCODE/Ice/.libs/IceUtils.o
+	../../drawstuff/src/.deps/drawstuff.Po
+	../../drawstuff/src/.libs/drawstuff.o
+	../../drawstuff/src/.libs/x11.o
+	../../drawstuff/src/_drawstuff.o
+	../../ode/demo/.libs/
+	../../ode/src/.deps/*.Tpo
+	../../ode/src/.deps/array.Po
+	../../ode/src/.deps/box.Po
+	../../ode/src/.deps/capsule.Po
+	../../ode/src/.deps/collision_cylinder_box.Po
+	../../ode/src/.deps/collision_cylinder_plane.Po
+	../../ode/src/.deps/collision_cylinder_sphere.Po
+	../../ode/src/.deps/collision_cylinder_trimesh.Po
+	../../ode/src/.deps/collision_kernel.Po
+	../../ode/src/.deps/collision_quadtreespace.Po
+	../../ode/src/.deps/collision_sapspace.Po
+	../../ode/src/.deps/collision_space.Po
+	../../ode/src/.deps/collision_transform.Po
+	../../ode/src/.deps/collision_trimesh_box.Po
+	../../ode/src/.deps/collision_trimesh_ccylinder.Po
+	../../ode/src/.deps/collision_trimesh_disabled.Po
+	../../ode/src/.deps/collision_trimesh_distance.Po
+	../../ode/src/.deps/collision_trimesh_opcode.Po
+	../../ode/src/.deps/collision_trimesh_plane.Po
+	../../ode/src/.deps/collision_trimesh_ray.Po
+	../../ode/src/.deps/collision_trimesh_sphere.Po
+	../../ode/src/.deps/collision_trimesh_trimesh.Po
+	../../ode/src/.deps/collision_trimesh_trimesh_new.Po
+	../../ode/src/.deps/collision_util.Po
+	../../ode/src/.deps/convex.Po
+	../../ode/src/.deps/cylinder.Po
+	../../ode/src/.deps/error.Po
+	../../ode/src/.deps/export-dif.Po
+	../../ode/src/.deps/fastdot.Po
+	../../ode/src/.deps/fastldlt.Po
+	../../ode/src/.deps/fastlsolve.Po
+	../../ode/src/.deps/fastltsolve.Po
+	../../ode/src/.deps/heightfield.Po
+	../../ode/src/.deps/lcp.Po
+	../../ode/src/.deps/mass.Po
+	../../ode/src/.deps/mat.Po
+	../../ode/src/.deps/matrix.Po
+	../../ode/src/.deps/memory.Po
+	../../ode/src/.deps/misc.Po
+	../../ode/src/.deps/nextafterf.Po
+	../../ode/src/.deps/obstack.Po
+	../../ode/src/.deps/ode.Po
+	../../ode/src/.deps/odeinit.Po
+	../../ode/src/.deps/odemath.Po
+	../../ode/src/.deps/plane.Po
+	../../ode/src/.deps/quickstep.Po
+	../../ode/src/.deps/ray.Po
+	../../ode/src/.deps/rotation.Po
+	../../ode/src/.deps/sphere.Po
+	../../ode/src/.deps/step.Po
+	../../ode/src/.deps/timer.Po
+	../../ode/src/.deps/util.Po
+	../../ode/src/.libs/_libode.a
+	../../ode/src/.libs/array.o
+	../../ode/src/.libs/box.o
+	../../ode/src/.libs/capsule.o
+	../../ode/src/.libs/collision_cylinder_box.o
+	../../ode/src/.libs/collision_cylinder_plane.o
+	../../ode/src/.libs/collision_cylinder_sphere.o
+	../../ode/src/.libs/collision_cylinder_trimesh.o
+	../../ode/src/.libs/collision_kernel.o
+	../../ode/src/.libs/collision_quadtreespace.o
+	../../ode/src/.libs/collision_sapspace.o
+	../../ode/src/.libs/collision_space.o
+	../../ode/src/.libs/collision_transform.o
+	../../ode/src/.libs/collision_trimesh_box.o
+	../../ode/src/.libs/collision_trimesh_ccylinder.o
+	../../ode/src/.libs/collision_trimesh_disabled.o
+	../../ode/src/.libs/collision_trimesh_distance.o
+	../../ode/src/.libs/collision_trimesh_opcode.o
+	../../ode/src/.libs/collision_trimesh_plane.o
+	../../ode/src/.libs/collision_trimesh_ray.o
+	../../ode/src/.libs/collision_trimesh_sphere.o
+	../../ode/src/.libs/collision_trimesh_trimesh.o
+	../../ode/src/.libs/collision_trimesh_trimesh_new.o
+	../../ode/src/.libs/collision_util.o
+	../../ode/src/.libs/convex.o
+	../../ode/src/.libs/cylinder.o
+	../../ode/src/.libs/error.o
+	../../ode/src/.libs/export-dif.o
+	../../ode/src/.libs/fastdot.o
+	../../ode/src/.libs/fastldlt.o
+	../../ode/src/.libs/fastlsolve.o
+	../../ode/src/.libs/fastltsolve.o
+	../../ode/src/.libs/heightfield.o
+	../../ode/src/.libs/lcp.o
+	../../ode/src/.libs/libode.so
+	../../ode/src/.libs/libode.so.3
+	../../ode/src/.libs/libode.so.3.0.0
+	../../ode/src/.libs/mass.o
+	../../ode/src/.libs/mat.o
+	../../ode/src/.libs/matrix.o
+	../../ode/src/.libs/memory.o
+	../../ode/src/.libs/misc.o
+	../../ode/src/.libs/nextafterf.o
+	../../ode/src/.libs/obstack.o
+	../../ode/src/.libs/ode.o
+	../../ode/src/.libs/odeinit.o
+	../../ode/src/.libs/odemath.o
+	../../ode/src/.libs/plane.o
+	../../ode/src/.libs/quickstep.o
+	../../ode/src/.libs/ray.o
+	../../ode/src/.libs/rotation.o
+	../../ode/src/.libs/sphere.o
+	../../ode/src/.libs/step.o
+	../../ode/src/.libs/timer.o
+	../../ode/src/.libs/util.o
+	../../ode/src/joints/.libs/amotor.o
+	../../ode/src/joints/.libs/ball.o
+	../../ode/src/joints/.libs/contact.o
+	../../ode/src/joints/.libs/fixed.o
+	../../ode/src/joints/.libs/hinge.o
+	../../ode/src/joints/.libs/hinge2.o
+	../../ode/src/joints/.libs/joint.o
+	../../ode/src/joints/.libs/lmotor.o
+	../../ode/src/joints/.libs/null.o
+	../../ode/src/joints/.libs/piston.o
+	../../ode/src/joints/.libs/plane2d.o
+	../../ode/src/joints/.libs/pr.o
+	../../ode/src/joints/.libs/pu.o
+	../../ode/src/joints/.libs/slider.o
+	../../ode/src/joints/.libs/universal.o
+	less
+	../../../pybox2d/
+	../../../rllab/
+	../../../test/
+	../../../theano_test/
+
+no changes added to commit (use "git add" and/or "git commit -a")
