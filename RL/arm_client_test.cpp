@@ -1,6 +1,6 @@
-#ifdef dDOUBLE
-#define dsDrawCapsule dsDrawCapsuleD
-#endif
+//#ifdef dDOUBLE
+//#define dsDrawCapsule dsDrawCapsuleD
+//#endif
 
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>
@@ -17,19 +17,13 @@
 #define ONE_ITER_LENGTH 10000
 #define SIGNAL_SPAN 100
 
-#define __DEBUG__ 1
+#define DEBUG 1
 
 // world and robot variable declaration is written in world.cpp and arm_robot*.cpp
 
 bool VIEW = false;
 bool ITER_FINISH = false;
 int count, sum_count;
-
-#if __DEBUG__
-// file for debug
-std::ofstream fout("socket.log");
-struct timeval start_time, end_time;
-#endif
 
 // TCP/IP communication
 Client client = Client();
@@ -63,11 +57,6 @@ void start(){
 
 
 void simLoop(int pause) {
-  // contact_data_relative initializing
-  world.contact_data_relative[0] = 0;
-  world.contact_data_relative[1] = 0;
-  world.contact_data_relative[2] = 0;
-  
   // Call dSpaceCollide in the begining of simLoop.
   // dSpaceCollide calls nearCallback.
   dSpaceCollide(SPACE_ID, 0, &nearCallback); 
@@ -79,17 +68,19 @@ void simLoop(int pause) {
   // communication protcol should be written in config file. 
   if(count % SIGNAL_SPAN == 0){
     // description
-    char recieve_buf[256]; char send_buf[256];
-    memset(send_buf, ' ', sizeof(send_buf));
+    //char recieve_buf[256]; char send_buf[256];
+    //memset(send_buf, ' ', sizeof(send_buf));
+    robot->ANGLE[0] = dJointGetHingeAngle(robot->joint[0]) * 180 / M_PI;
     robot->ANGLE[1] = dJointGetHingeAngle(robot->joint[1]) * 180 / M_PI;
     robot->ANGLE[2] = dJointGetHingeAngle(robot->joint[2]) * 180 / M_PI;
-    robot->ANGLE[3] = dJointGetHingeAngle(robot->joint[3]) * 180 / M_PI;
+
+#if !DEBUG
     sprintf(send_buf, "%d,%lf,%lf,%lf,%lf",
 	    count,
 	    robot->ANGLE[1],
 	    robot->ANGLE[2],
 	    robot->ANGLE[3],
-	    world.contact_data_relative[2] );
+	    world.contact_data[2] );
 
     bool TCP_SUCCEED = false;
     int n = -1;
@@ -104,31 +95,24 @@ void simLoop(int pause) {
     printf("send %s recieve %.12s rec_num %d count %d \n",send_buf, recieve_buf, n, count);
     double angle[NUM-1];
     sscanf(recieve_buf, "%lf %lf %lf", &angle[0], &angle[1], &angle[2]);
-
-#if __DEBUG__
-    gettimeofday(&end_time, NULL);
-    fout << (end_time.tv_sec - start_time.tv_sec) + (end_time.tv_usec - start.tv_usec)*1.0E-6 << ' '
-	 << sum_count << ' '
-	 << count << ' '
-	 << n << std::endl;
 #endif
     
     // Robot move
-    robot->ANGLE[1] = angle[0];
-    robot->ANGLE[2] = angle[1];
-    robot->ANGLE[3] = angle[2];
+    //robot->ANGLE[0] = angle[0];
+    //robot->ANGLE[1] = angle[1];
+    //robot->ANGLE[2] = angle[2];
   }
   
   // Drawing robot
   if(VIEW){
     dsSetColor(1.0,1.0,1.0);
     for (int i = 0; i <NUM; i++ )
-      dsDrawCapsule(dBodyGetPosition(robot->link[i]),
-		    dBodyGetRotation(robot->link[i]),
-		    robot->l[i], robot->r[i]);
+      dsDrawCapsuleD(dBodyGetPosition(robot->link[i].body),
+		     dBodyGetRotation(robot->link[i].body),
+		     robot->l[i], robot->r[i]);
     dsSetColor(1.0, 0.0, 0.0);
-    dsDrawBox(dBodyGetPosition(robot->tac_sensor.body),
-	      dBodyGetRotation(robot->tac_sensor.body),
+    dsDrawBoxD(dBodyGetPosition(robot->tac_sensor[0].body),
+	      dBodyGetRotation(robot->tac_sensor[0].body),
 	      robot->tac_size);
   }
 
@@ -142,10 +126,6 @@ void simLoop(int pause) {
 
 int main(int argc, char *argv[]) {
   dsFunctions fn; // drawing function
-
-#if __DEBUG__
-  gettimeofday(&start_time, NULL);
-#endif
   
   if(argc > 1){
     VIEW = true;
@@ -165,12 +145,13 @@ int main(int argc, char *argv[]) {
     world = World();
     robot = new Arm_Robot3(WORLD_ID, SPACE_ID);
 
+#if !DEBUG
     // First signal
     client.Create_connection();
     char SIGNAL[] = "RESTART_SIGNAL";
     client.Send(SIGNAL, sizeof(SIGNAL));
     client.Close_connection();
-    
+#endif
     
     // Simulation loop
     if(VIEW){

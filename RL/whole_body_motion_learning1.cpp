@@ -1,7 +1,7 @@
 #include "include/whole_body_motion_learning1.hpp"
 #define ONE_ITER_LENGTH 10000
 #define SIGNAL_SPAN 10
-#define DEBUG 0
+#define DEBUG 1
 
 bool __VIEW__ = false;
 bool ITER_FINISH = false;
@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
     if(__VIEW__){
       fn.version = DS_VERSION;     fn.start = &start;
       fn.step   = &simLoop;        fn.command = &command;
-      fn.path_to_textures = "../../drawstuff/textures";
+      fn.path_to_textures = TEXTURE_PATH;
     }
     
     client.Create_connection();

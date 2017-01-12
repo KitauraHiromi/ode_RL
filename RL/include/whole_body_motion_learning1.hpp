@@ -10,4 +10,5 @@
 #include "include/world.hpp"
 #include "include/baby_robot1.hpp"
 #include "include/nearCallback.hpp"
+#define TEXTURE_PATH "../../drawstuff/textures"
 // world and robot variable declaration is written in world.cpp and xx_robot*.cpp

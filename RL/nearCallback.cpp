@@ -28,7 +28,7 @@ void nearCallback(void *data, dGeomID o1, dGeomID o2)
 #endif
   
   // 二物体の衝突状態
-  const int N = 20;
+  const int N = 30;
   dContact contact[N];
   int n = dCollide (o1, o2, N, &contact[0].geom, sizeof(dContact));
 
