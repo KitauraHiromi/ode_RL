@@ -2,6 +2,8 @@
 #include <ode/ode.h>
 #include "include/StlReader.h"
 #include <drawstuff/drawstuff.h>
+#include <map>
+#include <vector>
 
 //static dWorldID world;
 //static dSpaceID space;

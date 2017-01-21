@@ -100,15 +100,16 @@ protected:
             fread( &param, sizeof(st_param3f), 1, fp );
             fread( &blank, sizeof(short int), 1, fp );
 	    // convert m to mm
-            this->m_vertices[i*3*3+0] = (vertex_type)param.v1.x / 1000.;
-            this->m_vertices[i*3*3+1] = (vertex_type)param.v1.y / 1000.;
-            this->m_vertices[i*3*3+2] = (vertex_type)param.v1.z / 1000.;
-            this->m_vertices[i*3*3+3] = (vertex_type)param.v2.x / 1000.;
-            this->m_vertices[i*3*3+4] = (vertex_type)param.v2.y / 1000.;
-            this->m_vertices[i*3*3+5] = (vertex_type)param.v2.z / 1000.;
-            this->m_vertices[i*3*3+6] = (vertex_type)param.v3.x / 1000.;
-            this->m_vertices[i*3*3+7] = (vertex_type)param.v3.y / 1000.;
-            this->m_vertices[i*3*3+8] = (vertex_type)param.v3.z / 1000.;
+	    double k = 1000.;
+            this->m_vertices[i*3*3+0] = (vertex_type)param.v1.x / k;
+            this->m_vertices[i*3*3+1] = (vertex_type)param.v1.y / k;
+            this->m_vertices[i*3*3+2] = (vertex_type)param.v1.z / k;
+            this->m_vertices[i*3*3+3] = (vertex_type)param.v2.x / k;
+            this->m_vertices[i*3*3+4] = (vertex_type)param.v2.y / k;
+            this->m_vertices[i*3*3+5] = (vertex_type)param.v2.z / k;
+            this->m_vertices[i*3*3+6] = (vertex_type)param.v3.x / k;
+            this->m_vertices[i*3*3+7] = (vertex_type)param.v3.y / k;
+            this->m_vertices[i*3*3+8] = (vertex_type)param.v3.z / k;
         }
 
         for (int i=0; i<(int)triNum*3; i++) {

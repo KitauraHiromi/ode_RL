@@ -13,8 +13,8 @@ World::World(){
   contact_data = new dJointFeedback;
   
   dWorldSetGravity(world, 0, 0, NORMAL_GRAVITY);
-  dWorldSetContactSurfaceLayer(world, 0.000001);
-  dWorldSetContactMaxCorrectingVel ( world, 1 );
+  dWorldSetContactSurfaceLayer(world, 0.00001);
+  dWorldSetContactMaxCorrectingVel ( world, 1.0 );
   //dWorldSetQuickStepNumIterations ( world, 5000 );
 }
 

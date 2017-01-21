@@ -19,7 +19,10 @@ arm_client_state_learning1: arm_client_state_learning1.cpp world.o include/arm_c
 whole_body_motion_learning1: whole_body_motion_learning1.cpp world.o include/whole_body_motion_learning1.hpp robot/baby_robot1.o tcp.o nearCallback.o
 	${CXX} ${INCLUDES} -o $@ $? ${LIBS} ${OPTS}
 
-whole_body_motion_learning2: whole_body_motion_learning2.cpp world.o include/whole_body_motion_learning2.hpp robot/baby_robot2.o tcp.o nearCallback.o libmesh.o
+whole_body_motion_learning2: whole_body_motion_learning2.cpp world.o include/whole_body_motion_learning2.hpp robot/baby_robot2.o tcp.o nearCallback.o libmesh.o include/baby_robot2.hpp
+	${CXX} ${INCLUDES} -o $@ $? ${LIBS} ${OPTS}
+
+whole_body_motion_learning3: whole_body_motion_learning3.cpp world.o include/whole_body_motion_learning3.hpp robot/baby_robot3.o tcp.o nearCallback.o libmesh.o include/baby_robot3.hpp
 	${CXX} ${INCLUDES} -o $@ $? ${LIBS} ${OPTS}
 
 tcp.o:tcp.cpp
@@ -42,6 +45,9 @@ robot/baby_robot1.o:robot/baby_robot1.cpp
 
 robot/baby_robot2.o:robot/baby_robot2.cpp
 	${CXX} ${INCLUDES} -o robot/baby_robot2.o -c $< ${OPTS}
+
+robot/baby_robot3.o:robot/baby_robot3.cpp
+	${CXX} ${INCLUDES} -o robot/baby_robot3.o -c $< ${OPTS}
 
 world.o:world.cpp
 	${CXX} ${INCLUDES} -c $< ${OPTS}

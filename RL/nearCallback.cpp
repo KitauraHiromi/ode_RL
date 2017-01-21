@@ -5,7 +5,7 @@ void ContactSetting(dContact* contact, double GKD, double GKP, double bounce, do
   // 衝突状態フラグの設定
   contact->surface.mode = dContactSoftERP | dContactSoftCFM | dContactApprox1 | dContactBounce;
   // クーロン摩擦
-  contact->surface.mu = 1.;
+  contact->surface.mu = 0.5;
   // 地面の柔軟性設定
   contact->surface.soft_erp = DT * GKP / ( DT * GKP + GKD);
   contact->surface.soft_cfm = 1 / ( DT * GKP + GKD);    

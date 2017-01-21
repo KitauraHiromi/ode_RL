@@ -21,6 +21,10 @@ dBodyID body1, body2, body3;
 dGeomID geom1, geom2, geom3;
 
 
+dWorldID world;
+dSpaceID space;
+dJointGroupID contactgroup;
+
 
 // 衝突検出用関数
 void nearCallback( void *data, dGeomID o1, dGeomID o2 ){
@@ -76,7 +80,7 @@ void simLoop( int pause ){
     dsSetColor( 1, 1, 0 );
     
     drawMesh(geom1);
-    drawMesh(geom2);
+    //drawMesh(geom2);
   }
 }
 
@@ -86,7 +90,8 @@ int main(int argc, char* argv[]){
   std::cout << "flag1" << std::endl;
   dInitODE();
 
-  char filename[] = "stl/20150622_LowerLeg_w004.stl";
+  //char filename[] = "stl/20150622_LowerLeg_w004.stl";
+  char filename[] = "stl/LowerLeg.stl";
   printf("%d\n", argc);
   if( argc > 1 ){
     __VIEW__ = true;
@@ -109,11 +114,11 @@ int main(int argc, char* argv[]){
   
   // create MeshObj
   createMeshObj( world, space, body1, geom1, 1.0, filename );
-  createMeshObj( world, space, body2, geom2, 1.0, filename );
+  //createMeshObj( world, space, body2, geom2, 1.0, filename );
   dBodySetPosition( body1, 0.0, 0.0, 1.0 );
-  dBodySetPosition( body2, 0.0, 0.0, 2.0 );
+  //dBodySetPosition( body2, 0.0, 0.0, 2.0 );
   dBodySetRotation( body1, R);
-  dBodySetRotation( body2, R);
+  //dBodySetRotation( body2, R);
 
   if(__VIEW__){
       dsFunctions fn;

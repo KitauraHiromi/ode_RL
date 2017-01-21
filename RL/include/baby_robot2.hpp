@@ -1,6 +1,8 @@
 #ifndef __BABY_ROBOT2__
 #define __BABY_ROBOT2__
 
+#include <vector>
+#include <string>
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>
 #include "include/libmesh.hpp"
@@ -8,10 +10,12 @@
 // the number of links
 #define NUM 11
 #define DOF 15
+#define SHELL_NUM 2
 #define MEM_NUM NUM*sizeof(dReal)
 #define MEM_DOF DOF*sizeof(dReal)
 #define TAC_NUM 1
 #define Main_Robot Baby_Robot2
+//#define NO_SHELL
 
 typedef struct {
   dBodyID body;
@@ -28,11 +32,11 @@ public:
   MyObject    link[NUM];         // リンク
   MyObject    joint_cyli[DOF];
   MyObject    tac_sensor[TAC_NUM];
-  MyObject    outer_shell1;
+  MyObject    outer_shell[SHELL_NUM];
   dJointID    joint[DOF];      // 関節
   dJointID    body_join_fix[6];
   dJointID    limb_join_fix[4];
-  dJointID    outer_shell_fix[1];
+  dJointID    outer_shell_fix[SHELL_NUM];
   dJointID    tac_fix[TAC_NUM];// 触覚固定ジョイント
   dReal      ANGLE[DOF];      // 関節目標角[deg]
   dReal      l[NUM];          // リンク長[m]

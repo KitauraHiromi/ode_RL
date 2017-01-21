@@ -4,10 +4,10 @@
 
 Baby_Robot2::Baby_Robot2(dWorldID world, dSpaceID space){
   // robot configuration
-  dReal _ROM[DOF*2] = { -90, 90,
+  dReal _ROM[DOF*2] = { -90, 10,
 			-90, 90,
 			-90, 90,
-			-90, 90,
+			-90, 10,
 			-90, 90,
 			-90, 90,
 			-90, 90,
@@ -176,6 +176,9 @@ Baby_Robot2::Baby_Robot2(dWorldID world, dSpaceID space){
   memcpy(axis_x, _axis_x, MEM_DOF);
   memcpy(axis_y, _axis_y, MEM_DOF);
   memcpy(axis_z, _axis_z, MEM_DOF);
+
+  // max velocity setting
+  dWorldSetMaxAngularSpeed( world, 10.0 );
   
   // Create link
   Create_link(world, space);
@@ -183,10 +186,29 @@ Baby_Robot2::Baby_Robot2(dWorldID world, dSpaceID space){
   // Create joint cylinder
   Create_joint_cyli(world, space);
 
+  
+#ifndef NO_SHELL
   // Create mesh
-  char filename[] = "stl/20150622_LowerLeg_w004.stl";
-  createMeshObj( world, space, outer_shell1.body, outer_shell1.geom, 1.0, filename);
-  dBodySetPosition( outer_shell1.body, 0.0, 0.0, 0.2 );
+  dMatrix3 R1, R2, R3;
+  dRFromZAxis(R1, 0, -1, 0);
+  dRFromAxisAndAngle(R2, 0, 1, 0, M_PI*90.0/180.0);
+  dMultiply0(R3, R2, R1, 3, 3, 3);
+ 
+  double shell_x[] = { x[1], x[3] };
+  double shell_y[] = { y[1], y[3] };
+  double shell_z[] = { z[1], z[3] };
+  
+  
+  char* filenames[] = { "stl/LowerLeg.stl",
+			"stl/LowerLeg.stl"
+  };
+  
+  for(int i=0; i<SHELL_NUM; i++){
+    createMeshObj( world, space, outer_shell[i].body, outer_shell[i].geom, 1.0, filenames[i]);
+    dBodySetPosition( outer_shell[i].body, shell_x[i], shell_y[i], shell_z[i] );
+    dBodySetRotation( outer_shell[i].body, R3 );
+  }
+#endif
     
   // Create a Tactile sensor
   Create_tac(world, space);
@@ -268,10 +290,14 @@ void Baby_Robot2::Create_link( dWorldID world, dSpaceID space ){
 }
 void Baby_Robot2::Joint_Setting( dWorldID world ){  
   for(int j=0; j<DOF; j++) joint[j] = dJointCreateHinge(world, 0);
+  // fixjointは不安定
   for(int j=0; j<6; j++) body_join_fix[j] = dJointCreateFixed(world, 0);
   for(int j=0; j<4; j++) limb_join_fix[j] = dJointCreateFixed(world, 0);
-  for(int j=0; j<1; j++) outer_shell_fix[j] = dJointCreateFixed(world, 0);
-  
+
+#ifndef NO_SHELL
+  for(int j=0; j<SHELL_NUM; j++) outer_shell_fix[j] = dJointCreateFixed(world, 0);
+#endif
+
   // left leg to lower trunk
   dJointAttach(limb_join_fix[0],       link[1].body,  joint_cyli[2].body);
   dJointAttach(        joint[2], joint_cyli[2].body,        link[0].body); // lll-x
@@ -304,8 +330,11 @@ void Baby_Robot2::Joint_Setting( dWorldID world ){
   dJointAttach(       joint[14],        link[8].body, joint_cyli[14].body); // h-y
   dJointAttach(body_join_fix[5], joint_cyli[14].body,        link[10].body);
 
+#ifndef NO_SHELL
   // outer shell to body
-  dJointAttach( outer_shell_fix[0], link[0].body, outer_shell1.body);
+  dJointAttach( outer_shell_fix[0], link[1].body, outer_shell[0].body);
+  dJointAttach( outer_shell_fix[1], link[3].body, outer_shell[1].body);
+#endif
   
   for(int j=0; j<DOF; j++){
       dJointSetHingeAnchor(joint[j], anchor_x[j], anchor_y[j],anchor_z[j]);
@@ -313,14 +342,46 @@ void Baby_Robot2::Joint_Setting( dWorldID world ){
   }
   for(int j=0; j<6; j++) dJointSetFixed(body_join_fix[j]);
   for(int j=0; j<4; j++) dJointSetFixed(limb_join_fix[j]);
-  for(int j=0; j<1; j++) dJointSetFixed(outer_shell_fix[j]);
-    
+
+#ifndef NO_SHELL
+  for(int j=0; j<SHELL_NUM; j++) dJointSetFixed(outer_shell_fix[j]);
+#endif
+
   // Fix tactile sensor to link
   for (int j=0; j<TAC_NUM; j++){
     tac_fix[j] = dJointCreateFixed(world, 0);
     dJointAttach(tac_fix[j], link[8].body, tac_sensor[j].body);
     dJointSetFixed(tac_fix[j]);
   }
+
+  // Joint param setting
+  /*
+  for (int i=0; i<DOF; i++){
+    dJointSetHingeParam(joint[i], dParamLoStop, ROM[2*i]/180.*M_PI);
+    dJointSetHingeParam(joint[i], dParamHiStop, ROM[2*i+1]/180.*M_PI);
+  }
+  */
+
+  for (int i=0; i<6; i++){
+    dJointSetFixedParam(body_join_fix[i], dParamFMax, 0.1);
+    dJointSetFixedParam(body_join_fix[i], dParamLoStop, -1/180.*M_PI);
+    dJointSetFixedParam(body_join_fix[i], dParamHiStop,  1/180.*M_PI);
+  }
+  
+  for (int i=0; i<4; i++){
+    dJointSetFixedParam(limb_join_fix[i], dParamFMax, 0.1);
+    dJointSetFixedParam(limb_join_fix[i], dParamLoStop, -1/180.*M_PI);
+    dJointSetFixedParam(limb_join_fix[i], dParamHiStop,  1/180.*M_PI);
+  }
+
+#ifndef NO_SHELL
+  for (int i=0; i<SHELL_NUM; i++){
+    dJointSetFixedParam(outer_shell_fix[i], dParamFMax, 0.1);
+    dJointSetFixedParam(outer_shell_fix[i], dParamLoStop, -1/180.*M_PI);
+    dJointSetFixedParam(outer_shell_fix[i], dParamHiStop,  1/180.*M_PI);
+  }
+#endif
+
 }
 
 void Baby_Robot2::restrict_angle(int i){
@@ -330,11 +391,11 @@ void Baby_Robot2::restrict_angle(int i){
 
 
 void Baby_Robot2::control() {
-  /***  PID  ****/
+  /***  PD  ****/
   static long int step = 0;
   static dReal z[3*DOF] = {0};
   // k1:比例ゲイン,  fMax：最大トルク[Nm]
-  dReal k1 =  0.2, k2 = 0.09, k3 = 0.1,  fMax  = 10.0;
+  dReal k1 =  0.2, k2 = 0.00, k3 = 0.1,  fMax  = 10.0;
   printf("\r%6d:",step++);
   for (int j = 0; j <DOF; j++) {
     dReal tmpAngle = dJointGetHingeAngle(joint[j]) / M_PI * 180;

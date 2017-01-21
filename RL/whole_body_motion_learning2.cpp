@@ -107,7 +107,10 @@ void simLoop(int pause) {
 		 robot->tac_size);
     
   }
-  drawMesh(robot->outer_shell1.geom);
+#ifndef NO_SHELL
+  for(int i=0; i<SHELL_NUM; i++)
+    drawMesh(robot->outer_shell[i].geom);
+#endif
   
   // counter increment
   ++sum_count;
