@@ -3,19 +3,22 @@
 #include <iostream>
 
 Baby_Robot3::Baby_Robot3(dWorldID world, dSpaceID space){
+  // initial posture
+  dReal _ANGLE[DOF] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -10, 0};
+  
   // robot configuration
-  dReal _ROM[DOF*2] = { -90, 10,
+  dReal _ROM[DOF*2] = { -60, 10,
+			-90, 90,
 			-90, 10,
+			-60, 10,
+			-90, 90,
+			-10, 90,
+			-90, 90,
+			-90, 90,
 			-90, 10,
+			-90, 90,
+			-90, 90,
 			-90, 10,
-			-90, 10,
-			-90, 10,
-			-90, 90,
-			-90, 90,
-			-90, 90,
-			-90, 90,
-			-90, 90,
-			-90, 90,
 			-90, 90,
 			-90, 90,
 			-90, 90  };
@@ -30,7 +33,6 @@ Baby_Robot3::Baby_Robot3(dWorldID world, dSpaceID space){
   dMultiply0(R_init, R_y, R_x, 3, 3, 3);
   
   // Initialize variables
-  dReal _ANGLE[DOF] = { 0.0 };
   // left uppper leg, left lower leg, right upper leg, right lower leg, left upper arm, left lower arm, right upper arm, right lower arm, upper trunk, lower trunk, head
   dReal _l[NUM]  = { 0.105, // lul
 		     0.150, // lll
@@ -65,8 +67,8 @@ Baby_Robot3::Baby_Robot3(dWorldID world, dSpaceID space){
   dReal d2 = 0.02;
   
   // mass
-  dReal _m_link[NUM] = { 0.500, 0.500, 0.500, 0.500, 0.375, 0.375, 0.375, 0.375, 4.000, 3.000, 3.000 };
-  dReal _m_join[DOF] = { 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010, 0.010 };
+  dReal _m_link[NUM] = { 0.500, 0.500, 0.500, 0.500, 0.375, 0.375, 0.375, 0.375, 0.300, 0.300, 0.300 };
+  dReal _m_join[DOF] = { 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10, 0.10 };
   memcpy(m_link, _m_link, MEM_NUM);
   memcpy(m_join, _m_join, MEM_DOF);
 
@@ -133,12 +135,12 @@ Baby_Robot3::Baby_Robot3(dWorldID world, dSpaceID space){
 		   anchor_x[2]+10, // lll
 		   (anchor_x[3] + anchor_x[5])/2.+10, // rul
 		   anchor_x[5]+10, // rll
-		   (anchor_x[6] + anchor_x[8])/2., // lua
-		   anchor_x[8] - (l[5]/2. + 2*joint_cyli_r),// lla
-		   (anchor_x[9] + anchor_x[11])/2., // rua
-		   anchor_x[11] + l[7]/2. + 2*joint_cyli_r, // rla
-		   0.000, // ut
-		   0.000, // lt
+		   (anchor_x[6] + anchor_x[8])/2.+10, // lua
+		   anchor_x[8] - (l[5]/2. + 2*joint_cyli_r)+10,// lla
+		   (anchor_x[9] + anchor_x[11])/2.+10, // rua
+		   anchor_x[11] + l[7]/2. + 2*joint_cyli_r +10, // rla
+		   0.000+10, // ut
+		   0.000+10, // lt
 		   0.000 }; // h
   
   dReal _y[NUM] = {(anchor_y[0] + anchor_y[2])/2., // lul
@@ -178,7 +180,7 @@ Baby_Robot3::Baby_Robot3(dWorldID world, dSpaceID space){
   memcpy(axis_z, _axis_z, MEM_DOF);
 
   // max velocity setting
-  dWorldSetMaxAngularSpeed( world, 10.0 );
+  dWorldSetMaxAngularSpeed( world, 4.0 );
   
   // Create link
   Create_link(world, space);
@@ -189,26 +191,71 @@ Baby_Robot3::Baby_Robot3(dWorldID world, dSpaceID space){
   
 #ifndef NO_SHELL
   // Create mesh
-  dMatrix3 R1, R2, R3;
-  dRFromZAxis(R1, 0, -1, 0);
-  dRFromAxisAndAngle(R2, 0, 1, 0, M_PI*90.0/180.0);
-  dMultiply0(R3, R2, R1, 3, 3, 3);
+  dMatrix3 R3[SHELL_NUM];
+  dReal rot[SHELL_NUM] = { -M_PI*90.0/180.0,
+			   M_PI*90.0/180.0 ,
+			   -M_PI*90.0/180.0,
+			   M_PI*90.0/180.0 ,
+			   M_PI*90.0/180.0 ,
+			   0 ,
+			   M_PI*90.0/180.0 ,
+			   0,
+			   M_PI*180.0/180.0,
+			   M_PI*180.0/180.0 };
+  
+  int shell_axis[SHELL_NUM*3] = { 0 , -1,  0,
+				  0 , -1,  0,
+				  0 , -1,  0,
+				  0 , -1,  0,
+				  -1,  0,  0,
+				  -1,  0,  0,
+				  1 ,  0,  0,
+				  1 ,  0,  0,
+				  0 ,  1,  0,
+				  0 ,  1,  0 };
+
+  dReal rot_axis[SHELL_NUM*3] = { 0 ,  1,  0,
+				  0 ,  1,  0,
+				  0 ,  1,  0,
+				  0 ,  1,  0,
+				  -1,  0,  0,
+				  -1,  0,  0,
+				  1 ,  0,  0,
+				  1 ,  0,  0,
+				  0 ,  1,  0,
+				  0 ,  1,  0 };
+				  
+  for(int i=0; i<SHELL_NUM; i++){
+    dMatrix3 R1, R2;
+    dRFromZAxis(R1, shell_axis[3*i], shell_axis[3*i+1], shell_axis[3*i+2]);
+    dRFromAxisAndAngle(R2, rot_axis[3*i], rot_axis[3*i+1], rot_axis[3*i+2], rot[i]);
+    dMultiply0(R3[i], R2, R1, 3, 3, 3);
+  }
  
-  double shell_x[] = { x[1]-10, x[3]-10, x[0]-10, x[2]-10 };
-  double shell_y[] = { y[1], y[3], y[0], y[2] };
-  double shell_z[] = { z[1], z[3], z[0], z[2] };
+  double shell_x[] = { x[0]-10, x[1]-10, x[2]-10, x[3]-10, x[4]-10, x[5]-10+0.05, x[6]-10, x[7]-10-0.05, x[8]-10-0.085, x[9]-10-0.068 };
+  double shell_y[] = { y[0], y[1], y[2], y[3], y[4], y[5], y[6], y[7], y[8]+0.1, y[9]+0.15 };
+  double shell_z[] = { z[0], z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9]+0.04 };
   
   
-  char* filenames[] = { "stl/LowerLeg.stl",
+  char* filenames[] = { "stl/UpperLeg.stl",
 			"stl/LowerLeg.stl",
 			"stl/UpperLeg.stl",
-			"stl/UpperLeg.stl"
+			"stl/LowerLeg.stl",
+			"stl/UpperArm.stl",
+			"stl/LowerArm.stl",
+			"stl/UpperArm.stl",
+			"stl/LowerArm.stl",
+			"stl/UpperTrunk.stl",
+			"stl/LowerTrunk.stl"
   };
+
+  dReal m_shell[SHELL_NUM] = { 0.8, 0.8, 0.8, 0.8, 0.3, 0.3, 0.3, 0.3, 1.0, 3.0 };
+  //dReal m_shell[SHELL_NUM] = { 10, 10, 10, 10, 10, 10, 10, 10 };
   
   for(int i=0; i<SHELL_NUM; i++){
-    createMeshObj( world, space, outer_shell[i].body, outer_shell[i].geom, 1, filenames[i]);
+    createMeshObj( world, space, outer_shell[i].body, outer_shell[i].geom, m_shell[i], filenames[i]);
     dBodySetPosition( outer_shell[i].body, shell_x[i], shell_y[i], shell_z[i] );
-    dBodySetRotation( outer_shell[i].body, R3 );
+    dBodySetRotation( outer_shell[i].body, R3[i] );
   }
 #endif
     
@@ -228,7 +275,7 @@ void Baby_Robot3::Create_tac( dWorldID world, dSpaceID space ){
   // tac sensor position
   dReal tac_x[TAC_NUM] = { 0.00 };
   dReal tac_y[TAC_NUM] = { y[8] };
-  dReal tac_z[TAC_NUM] = { z[8] + r[8] + tac_size[2]/2.};
+  dReal tac_z[TAC_NUM] = { z[8] + 1 + tac_size[2]/2.};
     
   for(int i=0; i<TAC_NUM; i++){
     // body
@@ -268,9 +315,9 @@ void Baby_Robot3::Create_joint_cyli( dWorldID world, dSpaceID space ){
 void Baby_Robot3::Create_link( dWorldID world, dSpaceID space ){
 
   // リンク初期姿勢
-  dReal link_axis_x[NUM] = {0.00,  0.00,  0.00,  0.00,  1.00,  1.00, -1.00, -1.00,  0.00,  0.00, 0.00};
-  dReal link_axis_y[NUM] = {1.00,  1.00,  1.00,  1.00,  0.00,  0.00,  0.00,  0.00,  1.00,  1.00, 1.00};
-  dReal link_axis_z[NUM] = {0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00, 0.00};
+  dReal link_axis_x[NUM] = {0.00,  0.00,  0.00,  0.00,  1.00,  1.00, -1.00, -1.00,  0.00,  0.00,  0.00 };
+  dReal link_axis_y[NUM] = {1.00,  1.00,  1.00,  1.00,  0.00,  0.00,  0.00,  0.00,  1.00,  1.00,  1.00 };
+  dReal link_axis_z[NUM] = {0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00,  0.00 };
   
   for (int i = 0; i <NUM; i++) {
     // get link rotation matrix
@@ -302,35 +349,35 @@ void Baby_Robot3::Joint_Setting( dWorldID world ){
 #endif
 
   // left leg to lower trunk
-  dJointAttach(limb_join_fix[0],outer_shell[0].body,  joint_cyli[2].body);
-  dJointAttach(        joint[2], joint_cyli[2].body, outer_shell[2].body); // lll-x
-  dJointAttach(        joint[0],outer_shell[2].body,  joint_cyli[0].body); // lul-z
+  dJointAttach(limb_join_fix[0],outer_shell[1].body,  joint_cyli[2].body);
+  dJointAttach(        joint[2], joint_cyli[2].body, outer_shell[0].body); // lll-x
+  dJointAttach(        joint[0],outer_shell[0].body,  joint_cyli[0].body); // lul-z
   dJointAttach(        joint[1], joint_cyli[0].body,  joint_cyli[1].body); // lul-x
-  dJointAttach(body_join_fix[0], joint_cyli[1].body,        link[9].body);
+  dJointAttach(body_join_fix[0], joint_cyli[1].body, outer_shell[9].body);
   // right leg to lower trunk
-  dJointAttach(limb_join_fix[1],outer_shell[1].body,  joint_cyli[5].body);
-  dJointAttach(        joint[5], joint_cyli[5].body, outer_shell[3].body); // rll-x
-  dJointAttach(        joint[3],outer_shell[3].body,  joint_cyli[3].body); // rul-z
+  dJointAttach(limb_join_fix[1],outer_shell[3].body,  joint_cyli[5].body);
+  dJointAttach(        joint[5], joint_cyli[5].body, outer_shell[2].body); // rll-x
+  dJointAttach(        joint[3],outer_shell[2].body,  joint_cyli[3].body); // rul-z
   dJointAttach(        joint[4], joint_cyli[3].body,  joint_cyli[4].body); // rul-x
-  dJointAttach(body_join_fix[1], joint_cyli[4].body,        link[9].body);
+  dJointAttach(body_join_fix[1], joint_cyli[4].body, outer_shell[9].body);
   // left arm to upper trunk
-  dJointAttach(limb_join_fix[2],       link[5].body,  joint_cyli[8].body);
-  dJointAttach(        joint[8], joint_cyli[8].body,        link[4].body);  
-  dJointAttach(        joint[6],       link[4].body,  joint_cyli[6].body);
+  dJointAttach(limb_join_fix[2],outer_shell[5].body,  joint_cyli[8].body);
+  dJointAttach(        joint[8], joint_cyli[8].body, outer_shell[4].body);  
+  dJointAttach(        joint[6],outer_shell[4].body,  joint_cyli[6].body);
   dJointAttach(        joint[7], joint_cyli[6].body,  joint_cyli[7].body);
-  dJointAttach(body_join_fix[2], joint_cyli[7].body,        link[8].body);
+  dJointAttach(body_join_fix[2], joint_cyli[7].body, outer_shell[8].body);
   // right arm to upper trunk
-  dJointAttach(limb_join_fix[3],       link[7].body,  joint_cyli[11].body);
-  dJointAttach(        joint[11],joint_cyli[11].body,        link[6].body);
-  dJointAttach(        joint[9],      link[6].body,  joint_cyli[9].body);
-  dJointAttach(        joint[10], joint_cyli[9].body,  joint_cyli[10].body);
-  dJointAttach(body_join_fix[3], joint_cyli[10].body,        link[8].body);
+  dJointAttach(limb_join_fix[3],outer_shell[7].body,  joint_cyli[11].body);
+  dJointAttach(        joint[11],joint_cyli[11].body, outer_shell[6].body);
+  dJointAttach(        joint[9],outer_shell[6].body,   joint_cyli[9].body);
+  dJointAttach(        joint[10], joint_cyli[9].body, joint_cyli[10].body);
+  dJointAttach(body_join_fix[3], joint_cyli[10].body, outer_shell[8].body);
   // upper trunk to lower trunk
-  dJointAttach(        joint[12],      link[8].body,  joint_cyli[12].body); // t-y
+  dJointAttach(        joint[12],outer_shell[8].body,  joint_cyli[12].body); // t-y
   dJointAttach(        joint[13],joint_cyli[12].body,  joint_cyli[13].body); // t-x
-  dJointAttach(body_join_fix[4], joint_cyli[13].body,        link[9].body);
+  dJointAttach(body_join_fix[4], joint_cyli[13].body,  outer_shell[9].body);
   // head to upper trunk
-  dJointAttach(       joint[14],        link[8].body, joint_cyli[14].body); // h-y
+  dJointAttach(       joint[14], outer_shell[8].body,  joint_cyli[14].body); // h-y
   dJointAttach(body_join_fix[5], joint_cyli[14].body,        link[10].body);
 
 #ifndef NO_SHELL
@@ -394,7 +441,8 @@ void Baby_Robot3::control() {
   static long int step = 0;
   static dReal z[3*DOF] = {0};
   // k1:比例ゲイン,  fMax：最大トルク[Nm]
-  dReal k1 =  0.2, k2 = 0.00, k3 = 0.1,  fMax  = 3.0;
+  dReal k1 =  0.2, k2 = 0.00, k3 = 0.1,  fMax  = 1.0;
+  //dReal k1 =  0.1, k2 = 0.0, k3 = 0.01,  fMax  = 3.0;
   printf("\r%6d:",step++);
   for (int j = 0; j <DOF; j++) {
     dReal tmpAngle = dJointGetHingeAngle(joint[j]) / M_PI * 180;
@@ -430,6 +478,26 @@ bool Baby_Robot3::BodyTactileCollision(dGeomID obj1, dGeomID obj2){
       if(tac_sensor[i].geom == obj1 && link[j].geom == obj2
 	 ||
 	 tac_sensor[i].geom == obj2 && link[j].geom == obj1)
+	return true;
+  return false;
+}
+
+bool Baby_Robot3::BodyBodyCollision(dGeomID obj1, dGeomID obj2){
+  for(int i=0; i<SHELL_NUM; i++)
+    for(int j=0; j<SHELL_NUM; j++)
+      if(outer_shell[i].geom == obj1 && outer_shell[j].geom == obj2
+	 ||
+	 outer_shell[i].geom == obj2 && outer_shell[j].geom == obj1)
+	return true;
+  return false;
+}
+
+bool Baby_Robot3::BodyJointCollision(dGeomID obj1, dGeomID obj2){
+  for(int i=0; i<SHELL_NUM; i++)
+    for(int j=0; j<DOF; j++)
+      if(outer_shell[i].geom == obj1 && joint_cyli[j].geom == obj2
+	 ||
+	 outer_shell[i].geom == obj2 && joint_cyli[j].geom == obj1)
 	return true;
   return false;
 }

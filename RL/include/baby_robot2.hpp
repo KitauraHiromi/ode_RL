@@ -1,5 +1,5 @@
-#ifndef __BABY_ROBOT2__
-#define __BABY_ROBOT2__
+#ifndef __BABY_ROBOT2_IS_USED__
+#define __BABY_ROBOT2_IS_USED__
 
 #include <vector>
 #include <string>

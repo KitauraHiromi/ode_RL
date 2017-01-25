@@ -1,5 +1,5 @@
-#ifndef __BABY_ROBOT3__
-#define __BABY_ROBOT3__
+#ifndef __BABY_ROBOT3_IS_USED__
+#define __BABY_ROBOT3_IS_USED__
 
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@
 // the number of links
 #define NUM 11
 #define DOF 15
-#define SHELL_NUM 4
+#define SHELL_NUM 10
 #define MEM_NUM NUM*sizeof(dReal)
 #define MEM_DOF DOF*sizeof(dReal)
 #define TAC_NUM 1
@@ -70,6 +70,8 @@ public:
   bool Is_Tactile(dGeomID);
   int Which_Tactile(dGeomID);
   bool BodyTactileCollision(dGeomID, dGeomID);
+  bool BodyBodyCollision(dGeomID, dGeomID);
+  bool BodyJointCollision(dGeomID, dGeomID);
   void command(int);
 };
 

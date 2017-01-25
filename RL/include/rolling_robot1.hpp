@@ -1,5 +1,5 @@
-#ifndef __ROLLING_ROBOT1__
-#define __ROLLING_ROBOT1__
+#ifndef __ROLLING_ROBOT1_IS_USED__
+#define __ROLLING_ROBOT1_IS_USED__
 
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>

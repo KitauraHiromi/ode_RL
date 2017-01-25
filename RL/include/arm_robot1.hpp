@@ -1,5 +1,5 @@
-#ifndef __ARM_ROBOT1__
-#define __ARM_ROBOT1__
+#ifndef __ARM_ROBOT1_IS_USED__
+#define __ARM_ROBOT1_IS_USED__
 
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>

@@ -52,7 +52,7 @@ robot/baby_robot3.o:robot/baby_robot3.cpp
 world.o:world.cpp
 	${CXX} ${INCLUDES} -c $< ${OPTS}
 
-nearCallback.o:nearCallback.cpp include/nearCallback.hpp world.o robot/baby_robot1.o robot/arm_robot1.o robot/arm_robot2.o robot/arm_robot3.o
+nearCallback.o:nearCallback.cpp include/nearCallback.hpp world.o robot/baby_robot3.o robot/arm_robot1.o robot/arm_robot2.o robot/arm_robot3.o
 	${CXX} ${INCLUDES} -c $<
 
 libmesh.o:libmesh.cpp include/libmesh.hpp 

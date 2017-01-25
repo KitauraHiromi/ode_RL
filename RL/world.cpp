@@ -14,7 +14,7 @@ World::World(){
   
   dWorldSetGravity(world, 0, 0, NORMAL_GRAVITY);
   dWorldSetContactSurfaceLayer(world, 0.00001);
-  dWorldSetContactMaxCorrectingVel ( world, 1.0 );
+  dWorldSetContactMaxCorrectingVel ( world, 0.5 );
   //dWorldSetQuickStepNumIterations ( world, 5000 );
 }
 

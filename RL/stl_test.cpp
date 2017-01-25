@@ -80,7 +80,7 @@ void simLoop( int pause ){
     dsSetColor( 1, 1, 0 );
     
     drawMesh(geom1);
-    //drawMesh(geom2);
+    drawMesh(geom2);
   }
 }
 
@@ -91,7 +91,7 @@ int main(int argc, char* argv[]){
   dInitODE();
 
   //char filename[] = "stl/20150622_LowerLeg_w004.stl";
-  char filename[] = "stl/LowerLeg.stl";
+  char filename[] = "stl/LowerTrunk.stl";
   printf("%d\n", argc);
   if( argc > 1 ){
     __VIEW__ = true;
@@ -114,11 +114,11 @@ int main(int argc, char* argv[]){
   
   // create MeshObj
   createMeshObj( world, space, body1, geom1, 1.0, filename );
-  //createMeshObj( world, space, body2, geom2, 1.0, filename );
+  createMeshObj( world, space, body2, geom2, 1.0, filename );
   dBodySetPosition( body1, 0.0, 0.0, 1.0 );
-  //dBodySetPosition( body2, 0.0, 0.0, 2.0 );
+  dBodySetPosition( body2, 0.0, 0.0, 2.0 );
   dBodySetRotation( body1, R);
-  //dBodySetRotation( body2, R);
+  dBodySetRotation( body2, R);
 
   if(__VIEW__){
       dsFunctions fn;

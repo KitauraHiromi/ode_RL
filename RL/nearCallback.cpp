@@ -26,6 +26,13 @@ void nearCallback(void *data, dGeomID o1, dGeomID o2)
   // 触覚センサとbodyは衝突判定しない
   if(b1 && b2 && robot->BodyTactileCollision(o1, o2)) return;
 #endif
+
+#ifndef NO_SHELL
+  if(b1 && b2 && robot->BodyBodyCollision(o1, o2)) return;
+#endif
+  
+  if(b1 && b2 && robot->BodyJointCollision(o1, o2)) return;
+
   
   // 二物体の衝突状態
   const int N = 30;
