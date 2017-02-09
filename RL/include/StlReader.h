@@ -100,7 +100,8 @@ protected:
             fread( &param, sizeof(st_param3f), 1, fp );
             fread( &blank, sizeof(short int), 1, fp );
 	    // convert m to mm
-	    double k = 1000.;
+	    // double k = 1000.;
+	    double k = 1.;
             this->m_vertices[i*3*3+0] = (vertex_type)param.v1.x / k;
             this->m_vertices[i*3*3+1] = (vertex_type)param.v1.y / k;
             this->m_vertices[i*3*3+2] = (vertex_type)param.v1.z / k;

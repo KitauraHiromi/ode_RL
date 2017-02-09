@@ -2,7 +2,6 @@
 #define __NEARCALLBACK__
 
 #define __NO_TACTILE__
-#define __BABY_ROBOT3__
 
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>

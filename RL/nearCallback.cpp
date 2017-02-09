@@ -22,17 +22,25 @@ void nearCallback(void *data, dGeomID o1, dGeomID o2)
   
   if(b1 && b2 && dAreConnected(b1, b2)) return;
 
-#ifndef __NO_TACTILE__
-  // 触覚センサとbodyは衝突判定しない
-  if(b1 && b2 && robot->BodyTactileCollision(o1, o2)) return;
+#ifdef __USE_TACTILE__
+
+  if(robot->Upper_Trunk->Callback(o1, o2)) return;
+  if(robot->Lower_Trunk->Callback(o1, o2)) return;
+  if(robot->Right_Arm->Callback(o1, o2)) return;
+  if(robot->Left_Arm->Callback(o1, o2)) return;
+  if(robot->Right_Leg->Callback(o1, o2)) return;
+  if(robot->Left_Leg->Callback(o1, o2)) return;
+  
 #endif
 
-#ifndef NO_SHELL
+#ifdef __USE_SHELL__
   if(b1 && b2 && robot->BodyBodyCollision(o1, o2)) return;
 #endif
-  
-  if(b1 && b2 && robot->BodyJointCollision(o1, o2)) return;
 
+
+#ifdef __USE_JOINT_CILYNDER__
+  if(b1 && b2 && robot->BodyJointCollision(o1, o2)) return;
+#endif
   
   // 二物体の衝突状態
   const int N = 30;
@@ -42,14 +50,14 @@ void nearCallback(void *data, dGeomID o1, dGeomID o2)
   if (n > 0) {
     for (int i=0; i<n; i++) {
       // if(o1==robot->tac_sensor.geom || o2==robot->tac_sensor.geom){
-#ifndef __NO_TACTILE__
+#ifdef __USE_OLD_TACTILE__
       if(robot->Is_Tactile(o1) || robot->Is_Tactile(o2)){
 	ContactSetting(&contact[i], softGKD, softGKP, 0.1, 0);
       }
       else{
 #endif
       ContactSetting(&contact[i], hardGKD, hardGKP, 0.4, 0);
-#ifndef __NO_TACTILE__
+#ifdef __USE_OLD_TACTILE__
       }
 #endif
       
@@ -57,7 +65,7 @@ void nearCallback(void *data, dGeomID o1, dGeomID o2)
       dJointAttach(c, dGeomGetBody(contact[i].geom.g1), dGeomGetBody(contact[i].geom.g2));
 
       // Tactile value setting
-#ifndef __NO_TACTILE__
+#ifdef __USE_OLD_TACTILE__
       int j = std::max(robot->Which_Tactile(o1), robot->Which_Tactile(o2));
       if(j > -1){
 	// contact_data is world coordinate.

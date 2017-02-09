@@ -3,18 +3,14 @@
 
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>
+#include <cmath>
+#include "include/tactile_sensor.hpp"
+
 #define NUM 7
 #define DOF 11
 #define MEM_NUM NUM*sizeof(dReal)
 #define MEM_DOF DOF*sizeof(dReal)
-#define TAC_NUM 0
 #define Main_Robot Baby_Robot1
-
-typedef struct {
-  dBodyID body;
-  dGeomID geom;
-  dVector3 value;
-} MyObject;
 
 class Baby_Robot1{
 public:
@@ -27,12 +23,12 @@ public:
   //MyObject    tac_sensor[TAC_NUM];
   dJointID    joint[DOF];      // 関節
   dJointID    body_join_fix[6];
+  // 触覚はrayで実装
   //dJointID    tac_fix[TAC_NUM];// 触覚固定ジョイント
   dReal      ANGLE[DOF];      // 関節目標角[deg]
   dReal      l[NUM];          // リンク長[m]
   dReal      r[NUM];          // リンク半径[m]
-  dReal       tac_size[3];
-
+  
   // center of positon
   dReal x[NUM];  dReal y[NUM];  dReal z[NUM];
   //mass
@@ -46,16 +42,23 @@ public:
   // mass parameter
   dMass mass_link[NUM];
   dMass mass_join[DOF];
-  //dMass mass_tac[TAC_NUM];
+
+  // tactile sensor sheet
+  Tac_Sheet* Right_Arm;
+  Tac_Sheet* Left_Arm;
+  Tac_Sheet* Right_Leg;
+  Tac_Sheet* Left_Leg;
+  Tac_Sheet* Upper_Trunk;
+  Tac_Sheet* Lower_Trunk;
   
   Baby_Robot1(dWorldID, dSpaceID);
   ~Baby_Robot1();
-  void restrict_angle(int);
-  void control();
-  //bool Is_Tactile(dGeomID);
-  //int Which_Tactile(dGeomID);
-  //bool BodyTactileCollision(dGeomID, dGeomID);
-  void command(int);
+  void Restrict_Angle(int);
+  void Control();
+  bool Is_Tactile(dGeomID);
+  int Which_Tactile(dGeomID);
+  bool Body_Tactile_Collision(dGeomID, dGeomID);
+  void Command(int);
 };
 
 extern Baby_Robot1* robot;

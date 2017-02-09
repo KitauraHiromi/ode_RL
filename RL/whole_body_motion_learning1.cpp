@@ -24,7 +24,7 @@ void restart(Main_Robot* robot){
 }
 
 void command(int cmd){
-  robot->command(cmd);
+  robot->Command(cmd);
 }
 
 void start(){
@@ -38,7 +38,7 @@ void simLoop(int pause) {
   // Call dSpaceCollide in the begining of simLoop.
   // dSpaceCollide calls nearCallback.
   dSpaceCollide(SPACE_ID, 0, &nearCallback); 
-  robot->control();
+  robot->Control();
   // DT is written in nearCallback.hpp
   dWorldStep(WORLD_ID, DT);
   //dWorldQuickStep ( WORLD_ID, DT );
@@ -57,8 +57,8 @@ void simLoop(int pause) {
       robot->ANGLE[i] = dJointGetHingeAngle(robot->joint[i]) * 180 / M_PI;
       ss << ',' << robot->ANGLE[i];
     }
-#ifndef __NO_TACTILE__
-    for(int i=0; i<TAC_NUM; i++) ss << ',' << robot->tac_sensor[i].value[2];
+#ifdef __USE_TACTILE__
+    //for(int i=0; i<TAC_NUM; i++) ss << ',' << robot->tac_sensor[i].value[2];
 #endif
     char* send_buf = new char[ss.str().length()+1];
     strcpy(send_buf, ss.str().c_str());
@@ -102,12 +102,14 @@ void simLoop(int pause) {
     
     dsSetColor(1.0, 0.0, 0.0);
     
-    /*
-      for(int i=0; i<TAC_NUM; i++)
-      dsDrawBoxD(dBodyGetPosition(robot->tac_sensor[i].body),
-		dBodyGetRotation(robot->tac_sensor[i].body),
-		robot->tac_size);
-    */
+#ifdef __USE_TACTILE__
+    robot->Right_Arm->Draw_Sheet();
+    robot->Left_Arm->Draw_Sheet();
+    robot->Right_Leg->Draw_Sheet();
+    robot->Left_Leg->Draw_Sheet();
+    robot->Upper_Trunk->Draw_Sheet();
+    robot->Lower_Trunk->Draw_Sheet();
+#endif
   }
   
   // counter increment
@@ -121,10 +123,6 @@ void simLoop(int pause) {
 int main(int argc, char *argv[]) {
   dsFunctions fn; // drawing function
   bool FIRST = true;
-
-#ifdef dDOUBLE
-  std::cout << "dDOUBLE is defined" << std::endl;
-#endif
   
   while(1){
   // Initialization
@@ -154,7 +152,7 @@ int main(int argc, char *argv[]) {
     std::stringstream ss;
     ss << "FIRST_ITER_SIGNAL,"
        << robot->dof << ','
-       << TAC_NUM << ','
+      //<< TAC_NUM << ','
        << robot->angle_pitch;
     for(int i=0; i<DOF*2; i++) ss << ',' << robot->ROM[i];
     

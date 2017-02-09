@@ -232,21 +232,24 @@ Baby_Robot3::Baby_Robot3(dWorldID world, dSpaceID space){
     dMultiply0(R3[i], R2, R1, 3, 3, 3);
   }
  
-  double shell_x[] = { x[0]-10, x[1]-10, x[2]-10, x[3]-10, x[4]-10, x[5]-10+0.05, x[6]-10, x[7]-10-0.05, x[8]-10-0.085, x[9]-10-0.068 };
-  double shell_y[] = { y[0], y[1], y[2], y[3], y[4], y[5], y[6], y[7], y[8]+0.1, y[9]+0.15 };
-  double shell_z[] = { z[0], z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9]+0.04 };
+  //double shell_x[] = { x[0]-10, x[1]-10, x[2]-10, x[3]-10, x[4]-10, x[5]-10+0.05, x[6]-10, x[7]-10-0.05, x[8]-10-0.085, x[9]-10-0.068 };
+  double shell_x[] = { x[0]-10, x[1]-10, x[2]-10, x[3]-10, x[4]-10, x[5]-10, x[6]-10, x[7]-10, x[8]-10, x[9]-10};
+  //double shell_y[] = { y[0], y[1], y[2], y[3], y[4], y[5], y[6], y[7], y[8]+0.1, y[9]+0.15 };
+  double shell_y[] = { y[0], y[1], y[2], y[3], y[4], y[5], y[6], y[7], y[8], y[9]+0.06 };
+  // double shell_z[] = { z[0], z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9]+0.04 };
+  double shell_z[] = { z[0], z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9] };
   
   
-  char* filenames[] = { "stl/UpperLeg.stl",
-			"stl/LowerLeg.stl",
-			"stl/UpperLeg.stl",
-			"stl/LowerLeg.stl",
-			"stl/UpperArm.stl",
-			"stl/LowerArm.stl",
-			"stl/UpperArm.stl",
-			"stl/LowerArm.stl",
-			"stl/UpperTrunk.stl",
-			"stl/LowerTrunk.stl"
+  char* filenames[] = { "stl/UpperLeg_new.stl",
+			"stl/LowerLeg_new.stl",
+			"stl/UpperLeg_new.stl",
+			"stl/LowerLeg_new.stl",
+			"stl/UpperArm_new.stl",
+			"stl/LowerArm_new.stl",
+			"stl/UpperArm_new.stl",
+			"stl/LowerArm_new.stl",
+			"stl/UpperTrunk_new.stl",
+			"stl/LowerTrunk_new.stl"
   };
 
   dReal m_shell[SHELL_NUM] = { 0.8, 0.8, 0.8, 0.8, 0.3, 0.3, 0.3, 0.3, 1.0, 3.0 };

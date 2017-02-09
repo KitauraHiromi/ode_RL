@@ -2,6 +2,8 @@
 #include <memory.h>
 #include <iostream>
 
+
+
 Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
   // robot configuration
   dof = DOF;
@@ -24,18 +26,18 @@ Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
   dReal _l[NUM]  = { 0.300, 0.300, 0.250, 0.250, 0.100, 0.100, 0.1 };
   //dReal _l[NUM]  = { 0.600, 0.600, 0.5, 0.5, 0.200, 0.200, 0.200 };
   dReal _r[NUM]  = { 0.075, 0.075, 0.050, 0.050, 0.175, 0.150, 0.15 };
-  dReal _tac_size[3] = {0.1, 0.1, 0.05};
+  //dReal _tac_size[3] = {0.005, 0.005, 0.0025};
   memcpy(ANGLE, _ANGLE, MEM_DOF);
   memcpy(l, _l, MEM_NUM);
   memcpy(r, _r, MEM_NUM);
-  memcpy(tac_size, _tac_size, 3*sizeof(dReal));
+  //memcpy(tac_size, _tac_size, 3*sizeof(dReal));
   
   dReal dist = 0.1;
   // center of position
   //                                ll,                rl,             la,         ra,           ut,      lt,                  h 
   dReal _x[NUM] = {    -1*(r[0]+r[5]),         r[1]+r[5], -1*(r[2]+r[4]),  r[2]+r[4],        0.000,   0.000,              0.000 };
   dReal _y[NUM] = { -l[0]/2-l[5]-dist, -l[0]/2-l[5]-dist,     0.050+dist, 0.050+dist, 0.000+dist*3, -l[5]/2, l[4]+l[6]/2+dist*5 };
-  dReal _z[NUM] = {            l[4]/2,            l[4]/2,         l[4]/2,     l[4]/2,       l[4]/2,  l[4]/2,        l[4]/2-0.03 }; 
+  dReal _z[NUM] = {            r[4]/2+0.1,            r[4]/2+0.1,         r[4]/2+0.1,     r[4]/2+0.1,       r[4]/2+0.1,  r[4]/2+0.1,     r[4]/2+0.1  }; 
   memcpy(x, _x, MEM_NUM);
   memcpy(y, _y, MEM_NUM);
   memcpy(z, _z, MEM_NUM);
@@ -47,10 +49,36 @@ Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
   memcpy(m_join, _m_join, MEM_DOF);
 
   // tac sensor position
-  //dReal tac_x[TAC_NUM] = { 0.00 };
-  //dReal tac_y[TAC_NUM] = { 0.00 };
-  //dReal tac_z[TAC_NUM] = { z[1]+l[1]/2+0.1 };
+  // boxをつけるより、ray
+  
+  /*
+  dReal tac_x[TAC_NUM], tac_y[TAC_NUM], tac_z[TAC_NUM];
+  dMatrix3 tac_R[TAC_NUM];
 
+  // upper trunk
+  for (int i=0; i<10; i++){
+    for(int j=0; j<TAC_T_NUM; j++){
+      dReal tac_sin = SIN(double(j)/TAC_T_NUM * 2*M_PI);
+      dReal tac_cos = COS(double(j)/TAC_T_NUM * 2*M_PI);
+      tac_y[TAC_T_NUM*i + j] = r[4]*tac_sin;
+      tac_z[TAC_T_NUM*i + j] = 0.025*(i-5);
+      tac_x[TAC_T_NUM*i + j] = r[4]*tac_cos;
+      dRFromZAxis(tac_R[TAC_T_NUM*i + j], tac_cos, tac_sin, 0);
+    }
+  }
+  
+  // lower trunk
+  for (int i=11; i<20; 1++){
+    for(int j=0; j<TAC_T_NUM; j++){
+      dReal tac_sin = SIN(double(j)/TAC_T_NUM * 2*M_PI);
+      dReal tac_cos = COS(double(j)/TAC_T_NUM * 2*M_PI);
+      tac_y[TAC_T_NUM*i + j] = r[5]*tac_sin;
+      tac_z[TAC_T_NUM*i + j] = 0.025*(i-5);
+      tac_x[TAC_T_NUM*i + j] = r[5]*tac_cos;
+      dRFromZAxis(tac_R[TAC_T_NUM*i + j], tac_cos, tac_sin, 0);
+    }
+  }
+  */
   dReal d = 0.1;
   // 回転中心                        ll-z,          ll-x,          rl-z,          rl-x,          la-z,          la-y,          ra-z,          ra-y,         t-y,         t-x,         h-y
   dReal _anchor_x[DOF] = {          x[0],          x[0],          x[1],          x[1],          x[2],          x[2],          x[3],          x[3],        x[4],        x[4],        x[6]};
@@ -95,7 +123,6 @@ Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
     dRFromZAxis(R, axis_x[i], axis_y[i], axis_z[i]);
     
     // body
-    // direction may be wrong.
     joint_cyli[i].body = dBodyCreate(world);
     //dBodySetGyroscopicMode(joint_cyli[i].body, 0);
     dBodySetPosition(joint_cyli[i].body, anchor_x[i], anchor_y[i], anchor_z[i]);
@@ -150,41 +177,24 @@ Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
     dJointSetFixed(body_join_fix[j]);
 
   // Create a Tactile sensor
-  /*
-  for(int i=0; i<TAC_NUM; i++){
-    // body
-    tac_sensor[i].body = dBodyCreate(world);
-    dBodySetPosition(tac_sensor[i].body, tac_x[i], tac_y[i], tac_z[i]);
-    dMassSetZero(&mass_tac[i]);
-    dMassSetBoxTotal(&mass_tac[i], 0.01, tac_size[0], tac_size[1], tac_size[2]);
-    dBodySetMass(tac_sensor[i].body, &mass_tac[i]);
-    
-    // geom
-    tac_sensor[i].geom = dCreateBox(space, tac_size[0], tac_size[1], tac_size[2]);
-    dGeomSetBody(tac_sensor[i].geom, tac_sensor[i].body);
-  }
-  */
-  
-  /*
-  // Fix tactile sensor to link
-  for (int j=0; j<TAC_NUM; j++){
-    tac_fix[j] = dJointCreateFixed(world, 0);
-    dJointAttach(tac_fix[j], link[1].body, tac_sensor[j].body);
-    dJointSetFixed(tac_fix[j]);
-  }
-  */
+  Right_Leg = new Tac_Sheet(world, space, link[0].body, x[0], y[0], z[0], r[0], 20, 10);
+  Left_Leg = new Tac_Sheet(world, space, link[1].body, x[1], y[1], z[1], r[1], 20, 10);
+  Right_Arm = new Tac_Sheet(world, space, link[2].body, x[2], y[2], z[2], r[2], 20, 10);
+  Left_Arm = new Tac_Sheet(world, space, link[3].body, x[3], y[3], z[3], r[3], 20, 10);
+  Upper_Trunk = new Tac_Sheet(world, space, link[4].body, x[4], y[4], z[4], r[4], 36, 10);
+  Lower_Trunk = new Tac_Sheet(world, space, link[5].body, x[5], y[5], z[5], r[5], 36, 10);
 }
 
 Baby_Robot1::~Baby_Robot1(){
 }
 
-void Baby_Robot1::restrict_angle(int i){
+void Baby_Robot1::Restrict_Angle(int i){
   ANGLE[i] = std::max(ROM[2*i], ANGLE[i]);
   ANGLE[i] = std::min(ROM[2*i+1], ANGLE[i]);
 }
 
 
-void Baby_Robot1::control() {
+void Baby_Robot1::Control() {
   /***  PID  ****/
   static long int step = 0;
   static dReal z[3*DOF] = {0};
@@ -206,6 +216,7 @@ void Baby_Robot1::control() {
     dJointSetHingeParam(joint[j], dParamFMax, fMax);
   }
 }
+
 /*
 bool Baby_Robot1::Is_Tactile(dGeomID obj){
   for(int i=0; i<TAC_NUM; i++)
@@ -220,42 +231,47 @@ int Baby_Robot1::Which_Tactile(dGeomID obj){
 }
 
 bool Baby_Robot1::BodyTactileCollision(dGeomID obj1, dGeomID obj2){
-  for(int i=0; i<TAC_NUM; i++)
-    for(int j=0; j<NUM; j++)
-      if(tac_sensor[i].geom == obj1 && link[j].geom == obj2
-	 ||
-	 tac_sensor[i].geom == obj2 && link[j].geom == obj1)
-	return true;
+  for(int i=0; i<TAC_NUM; i++){
+    if(tac_sensor[i].geom == obj1 || tac_sensor[i].geom == obj2){
+      for(int j=0; j<NUM; j++)
+	if(link[j].geom == obj1 || link[j].geom == obj2)
+	  return true;
+      
+      for(int j=0; j<DOF; j++)
+	if(joint_cyli[j].geom == obj1 || joint_cyli[j].geom == obj2)
+	  return true;
+    }
+  }
   return false;
 }
 */
 
-void Baby_Robot1::command(int cmd) {
+void Baby_Robot1::Command(int cmd) {
   switch (cmd) {
     // case 'r': restart(robot); break;
-  case '1': ANGLE[0] += 5; restrict_angle(0); break;
-  case '2': ANGLE[1] += 5; restrict_angle(1); break;
-  case '3': ANGLE[2] += 5; restrict_angle(2); break;
-  case '4': ANGLE[3] += 5; restrict_angle(3); break;
-  case '5': ANGLE[4] += 5; restrict_angle(4); break;
-  case '6': ANGLE[5] += 5; restrict_angle(5); break;
-  case '7': ANGLE[6] += 5; restrict_angle(6); break;
-  case '8': ANGLE[7] += 5; restrict_angle(7); break;
-  case '9': ANGLE[8] += 5; restrict_angle(8); break; 
-  case '0': ANGLE[9] += 5; restrict_angle(9); break; 
-  case '-': ANGLE[10] += 5; restrict_angle(10); break;
+  case '1': ANGLE[0] += 5; Restrict_Angle(0); break;
+  case '2': ANGLE[1] += 5; Restrict_Angle(1); break;
+  case '3': ANGLE[2] += 5; Restrict_Angle(2); break;
+  case '4': ANGLE[3] += 5; Restrict_Angle(3); break;
+  case '5': ANGLE[4] += 5; Restrict_Angle(4); break;
+  case '6': ANGLE[5] += 5; Restrict_Angle(5); break;
+  case '7': ANGLE[6] += 5; Restrict_Angle(6); break;
+  case '8': ANGLE[7] += 5; Restrict_Angle(7); break;
+  case '9': ANGLE[8] += 5; Restrict_Angle(8); break; 
+  case '0': ANGLE[9] += 5; Restrict_Angle(9); break; 
+  case '-': ANGLE[10] += 5; Restrict_Angle(10); break;
     
-  case 'q': ANGLE[0] -= 5; restrict_angle(0); break;
-  case 'w': ANGLE[1] -= 5; restrict_angle(1); break;
-  case 'e': ANGLE[2] -= 5; restrict_angle(2); break;
-  case 'r': ANGLE[3] -= 5; restrict_angle(3); break;
-  case 't': ANGLE[4] -= 5; restrict_angle(4); break;
-  case 'y': ANGLE[5] -= 5; restrict_angle(5); break;
-  case 'u': ANGLE[6] -= 5; restrict_angle(6); break;
-  case 'i': ANGLE[7] -= 5; restrict_angle(7); break;
-  case 'o': ANGLE[8] -= 5; restrict_angle(8); break; 
-  case 'p': ANGLE[9] -= 5; restrict_angle(9); break; 
-  case '@': ANGLE[10] -= 5; restrict_angle(10); break; 
+  case 'q': ANGLE[0] -= 5; Restrict_Angle(0); break;
+  case 'w': ANGLE[1] -= 5; Restrict_Angle(1); break;
+  case 'e': ANGLE[2] -= 5; Restrict_Angle(2); break;
+  case 'r': ANGLE[3] -= 5; Restrict_Angle(3); break;
+  case 't': ANGLE[4] -= 5; Restrict_Angle(4); break;
+  case 'y': ANGLE[5] -= 5; Restrict_Angle(5); break;
+  case 'u': ANGLE[6] -= 5; Restrict_Angle(6); break;
+  case 'i': ANGLE[7] -= 5; Restrict_Angle(7); break;
+  case 'o': ANGLE[8] -= 5; Restrict_Angle(8); break; 
+  case 'p': ANGLE[9] -= 5; Restrict_Angle(9); break; 
+  case '@': ANGLE[10] -= 5; Restrict_Angle(10); break; 
   }
 }
 

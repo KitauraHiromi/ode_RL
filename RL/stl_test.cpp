@@ -91,7 +91,7 @@ int main(int argc, char* argv[]){
   dInitODE();
 
   //char filename[] = "stl/20150622_LowerLeg_w004.stl";
-  char filename[] = "stl/LowerTrunk.stl";
+  char filename[] = "stl/LowerTrunk_new.stl";
   printf("%d\n", argc);
   if( argc > 1 ){
     __VIEW__ = true;

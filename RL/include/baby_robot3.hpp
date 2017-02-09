@@ -17,6 +17,10 @@
 #define Main_Robot Baby_Robot3
 // #define NO_SHELL
 
+#define __USE_TACTILE__
+#define __USE_JOINT_CILYNDER__
+#define __USE_SHELL__
+
 typedef struct {
   dBodyID body;
   dGeomID geom;
