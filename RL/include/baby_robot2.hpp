@@ -15,7 +15,9 @@
 #define MEM_DOF DOF*sizeof(dReal)
 #define TAC_NUM 1
 #define Main_Robot Baby_Robot2
-//#define NO_SHELL
+
+#define __USE_OLD_TACTILE__
+#define __USE_SHELL__
 
 typedef struct {
   dBodyID body;

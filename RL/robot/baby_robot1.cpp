@@ -48,37 +48,6 @@ Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
   memcpy(m_link, _m_link, MEM_NUM);
   memcpy(m_join, _m_join, MEM_DOF);
 
-  // tac sensor position
-  // boxをつけるより、ray
-  
-  /*
-  dReal tac_x[TAC_NUM], tac_y[TAC_NUM], tac_z[TAC_NUM];
-  dMatrix3 tac_R[TAC_NUM];
-
-  // upper trunk
-  for (int i=0; i<10; i++){
-    for(int j=0; j<TAC_T_NUM; j++){
-      dReal tac_sin = SIN(double(j)/TAC_T_NUM * 2*M_PI);
-      dReal tac_cos = COS(double(j)/TAC_T_NUM * 2*M_PI);
-      tac_y[TAC_T_NUM*i + j] = r[4]*tac_sin;
-      tac_z[TAC_T_NUM*i + j] = 0.025*(i-5);
-      tac_x[TAC_T_NUM*i + j] = r[4]*tac_cos;
-      dRFromZAxis(tac_R[TAC_T_NUM*i + j], tac_cos, tac_sin, 0);
-    }
-  }
-  
-  // lower trunk
-  for (int i=11; i<20; 1++){
-    for(int j=0; j<TAC_T_NUM; j++){
-      dReal tac_sin = SIN(double(j)/TAC_T_NUM * 2*M_PI);
-      dReal tac_cos = COS(double(j)/TAC_T_NUM * 2*M_PI);
-      tac_y[TAC_T_NUM*i + j] = r[5]*tac_sin;
-      tac_z[TAC_T_NUM*i + j] = 0.025*(i-5);
-      tac_x[TAC_T_NUM*i + j] = r[5]*tac_cos;
-      dRFromZAxis(tac_R[TAC_T_NUM*i + j], tac_cos, tac_sin, 0);
-    }
-  }
-  */
   dReal d = 0.1;
   // 回転中心                        ll-z,          ll-x,          rl-z,          rl-x,          la-z,          la-y,          ra-z,          ra-y,         t-y,         t-x,         h-y
   dReal _anchor_x[DOF] = {          x[0],          x[0],          x[1],          x[1],          x[2],          x[2],          x[3],          x[3],        x[4],        x[4],        x[6]};
@@ -216,35 +185,6 @@ void Baby_Robot1::Control() {
     dJointSetHingeParam(joint[j], dParamFMax, fMax);
   }
 }
-
-/*
-bool Baby_Robot1::Is_Tactile(dGeomID obj){
-  for(int i=0; i<TAC_NUM; i++)
-    if(tac_sensor[i].geom == obj) return true;
-  else return false;
-}
-
-int Baby_Robot1::Which_Tactile(dGeomID obj){
-  for(int i=0; i<TAC_NUM; i++)
-    if(tac_sensor[i].geom == obj) return i;
-  else return -1;
-}
-
-bool Baby_Robot1::BodyTactileCollision(dGeomID obj1, dGeomID obj2){
-  for(int i=0; i<TAC_NUM; i++){
-    if(tac_sensor[i].geom == obj1 || tac_sensor[i].geom == obj2){
-      for(int j=0; j<NUM; j++)
-	if(link[j].geom == obj1 || link[j].geom == obj2)
-	  return true;
-      
-      for(int j=0; j<DOF; j++)
-	if(joint_cyli[j].geom == obj1 || joint_cyli[j].geom == obj2)
-	  return true;
-    }
-  }
-  return false;
-}
-*/
 
 void Baby_Robot1::Command(int cmd) {
   switch (cmd) {

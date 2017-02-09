@@ -64,10 +64,13 @@ world.o:world.cpp
 nearCallback.o:nearCallback.cpp include/nearCallback.hpp world.o robot/baby_robot3.o robot/arm_robot1.o robot/arm_robot2.o robot/arm_robot3.o
 	${CXX} ${INCLUDES} -c $<
 
-nearCallback1.o:nearCallback.cpp include/nearCallback.hpp world.o robot/baby_robot3.o robot/arm_robot1.o robot/arm_robot2.o robot/arm_robot3.o
+nearCallback1.o:nearCallback.cpp include/nearCallback.hpp world.o robot/baby_robot1.o
 	${CXX} ${INCLUDES} -c $< -o nearCallback1.o -D__BABY_ROBOT1__
 
-nearCallback3.o:nearCallback.cpp include/nearCallback.hpp world.o robot/baby_robot3.o robot/arm_robot1.o robot/arm_robot2.o robot/arm_robot3.o
+nearCallback2.o:nearCallback.cpp include/nearCallback.hpp world.o robot/baby_robot2.o
+	${CXX} ${INCLUDES} -c $< -o nearCallback2.o -D__BABY_ROBOT2__
+
+nearCallback3.o:nearCallback.cpp include/nearCallback.hpp world.o robot/baby_robot3.o
 	${CXX} ${INCLUDES} -c $< -o nearCallback3.o -D__BABY_ROBOT3__
 
 libmesh.o:libmesh.cpp include/libmesh.hpp include/StlReader.h

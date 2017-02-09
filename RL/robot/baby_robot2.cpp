@@ -199,8 +199,8 @@ Baby_Robot2::Baby_Robot2(dWorldID world, dSpaceID space){
   double shell_z[] = { z[1], z[3] };
   
   
-  char* filenames[] = { "stl/LowerLeg.stl",
-			"stl/LowerLeg.stl"
+  char* filenames[] = { "stl/LowerLeg_new.stl",
+			"stl/LowerLeg_new.stl"
   };
   
   for(int i=0; i<SHELL_NUM; i++){

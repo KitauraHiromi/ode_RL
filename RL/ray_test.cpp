@@ -9,7 +9,7 @@
 #endif
 
 #define MAX_CONTACTS 10 // 最大の衝突検出可能数
-#define RAY_NUM 3000
+#define RAY_NUM 1
 
 static dWorldID world;
 static dSpaceID space;
@@ -99,9 +99,9 @@ static void simLoop( int pause )
 
   ///////////////////////////////////////////////////
   // 距離表示
-  if (dist>=0.0) {
+  //if (dist>=0.0) {
     printf( "dist = %f\n", dist );
-  }
+    //}
   ///////////////////////////////////////////////////
 
   // draw box
@@ -192,14 +192,14 @@ int main( int argc, char* argv[] )
   // Ray setting
   {
     dReal pos[3] = { 1.0, 0.0, 0.0 };
-    dReal length = 5.0;
+    dReal length = 0.5;
 
     for(int i=0; i<RAY_NUM; i++){
       geom_ray[i] = dCreateRay( space, length );
       dGeomSetBody( geom_ray[i], body_box );  // <= body is box
     
       // position and rotation setting
-      dGeomSetOffsetPosition( geom_ray[i], pos[0]+0.1*(i/100), pos[1], pos[2]+0.1*(i%100) );
+      dGeomSetOffsetPosition( geom_ray[i], pos[0]+0.1*(i/100)-0.1, pos[1], pos[2]+0.1*(i%100) );
       dMatrix3 R;
       dRFromAxisAndAngle( R, 0.0, 1.0, 0.0, 90.0*M_PI/180 );
       dGeomSetOffsetRotation( geom_ray[i], R );

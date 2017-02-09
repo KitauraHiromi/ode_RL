@@ -15,9 +15,8 @@
 #define MEM_DOF DOF*sizeof(dReal)
 #define TAC_NUM 1
 #define Main_Robot Baby_Robot3
-// #define NO_SHELL
 
-#define __USE_TACTILE__
+#define __USE_OLD_TACTILE__
 #define __USE_JOINT_CILYNDER__
 #define __USE_SHELL__
 

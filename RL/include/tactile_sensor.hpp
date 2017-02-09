@@ -32,6 +32,7 @@ public:
   Tac_Sheet(dWorldID _world, dSpaceID _space, dBodyID _fix_body, dReal _cx, dReal _cy, dReal _cz, dReal _r, int _rn, int _zn);
   ~Tac_Sheet();
   void Get_Tactile_Values(std::vector<dReal> &values);
+  void Set_Tactile_Values();
   void Set_Dist(int n, dReal dist);
   bool In_Sheet(dGeomID _geom);
   int Which_Tactile(dGeomID _geom);

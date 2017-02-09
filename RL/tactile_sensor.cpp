@@ -1,19 +1,24 @@
 #include "include/tactile_sensor.hpp"
 
 #define __USE_TACTILE__
-#define TAC_AMP 100000.0
+#define TAC_AMP 1000.0
 
 Tac_Sheet::Tac_Sheet(dWorldID _world, dSpaceID _space, dBodyID _fix_body, dReal _cx, dReal _cy, dReal _cz, dReal _r, int _rn, int _zn){
 
   // place tactile sensors along with cilinder surface
   center[0] = _cx; center[1] = _cy; center[2] = _cz;
-  r = _r;
   range = 0.005;
+  r = _r - range/2.;
   round_num = _rn;
   axis_num = _zn;
   total_num = round_num * axis_num;
   fix_body = _fix_body;
   tac_sensors.resize(total_num);
+  for (int i=0; i<total_num; i++){
+    tac_sensors[i].value[0] = -1;
+    tac_sensors[i].value[1] = -1;
+    tac_sensors[i].value[2] = -1;
+  }
   
   std::vector<dReal> tac_x(total_num);
   std::vector<dReal> tac_y(total_num);
@@ -28,7 +33,7 @@ Tac_Sheet::Tac_Sheet(dWorldID _world, dSpaceID _space, dBodyID _fix_body, dReal 
       dReal cos = COS(double(j)/round_num * 2*M_PI);
       tac_y[round_num*i + j] = r*sin;
       tac_z[round_num*i + j] = 0.025*(i-5);
-      tac_x[round_num*i + j] =r*cos;
+      tac_x[round_num*i + j] = r*cos;
       dRFromZAxis(tac_R[round_num*i + j], cos, sin, 0);
     }
   }
@@ -48,6 +53,12 @@ void Tac_Sheet::Get_Tactile_Values(std::vector<dReal> &values){
   for (int i=0; i<total_num; i++){
     values[i] = Convert_Tactile_Value(tac_sensors[i].value[0]);
   }
+}
+
+void Tac_Sheet::Set_Tactile_Values(){
+  for (int i=0; i<total_num; i++){
+    tac_sensors[i].value[1] = Convert_Tactile_Value(tac_sensors[i].value[0]);
+  } 
 }
 
 void Tac_Sheet::Set_Dist(int n, dReal dist){
@@ -94,12 +105,11 @@ bool Tac_Sheet::Callback(dGeomID o1, dGeomID o2){
   int n1 = Which_Tactile(o1);
   int n2 = Which_Tactile(o2);
   int n = std::max(n1, n2);
-  if( n > 0){
+  if( n > 0 ){
     dContactGeom c;
     int numc = dCollide( o1, o2, 1, &c, sizeof( dContactGeom) );
     if (numc > 0){
       tac_sensors[n].value[0] = c.depth;
-      //std::cout << c.depth << std::endl;
     }
     return true;
   }
@@ -107,5 +117,9 @@ bool Tac_Sheet::Callback(dGeomID o1, dGeomID o2){
 }
 
 dReal Tac_Sheet::Convert_Tactile_Value(dReal dist){
-  return std::min(1.0/dist, TAC_AMP)/TAC_AMP;
+  if( dist >= 0.0001 ){
+    return std::min( 1.0/(dist+0.1), TAC_AMP)/TAC_AMP;
+  }else{
+    return 0;
+  }
 }
