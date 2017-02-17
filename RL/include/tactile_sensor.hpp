@@ -3,6 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <fstream>
 
 #define __USE_TACTILE__
 
@@ -20,6 +21,8 @@ typedef struct {
 
 class Tac_Sheet{
 public:
+  int sheet_num;
+  std::ofstream tac_out;
   dReal center[3];
   dReal r;
   dReal range;
@@ -29,11 +32,12 @@ public:
   std::vector<MyObject> tac_sensors;
   dBodyID fix_body;
   
-  Tac_Sheet(dWorldID _world, dSpaceID _space, dBodyID _fix_body, dReal _cx, dReal _cy, dReal _cz, dReal _r, int _rn, int _zn);
+  Tac_Sheet(dWorldID _world, dSpaceID _space, dBodyID _fix_body, int _sheet_num,  dReal _cx, dReal _cy, dReal _cz, dReal _r, int _rn, int _zn);
   ~Tac_Sheet();
   void Get_Tactile_Values(std::vector<dReal> &values);
   void Set_Tactile_Values();
   void Set_Dist(int n, dReal dist);
+  void Write_Data(std::ofstream&);
   bool In_Sheet(dGeomID _geom);
   int Which_Tactile(dGeomID _geom);
   void Draw_Sheet();

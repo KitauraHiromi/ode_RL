@@ -3,9 +3,10 @@
 #define __USE_TACTILE__
 #define TAC_AMP 1000.0
 
-Tac_Sheet::Tac_Sheet(dWorldID _world, dSpaceID _space, dBodyID _fix_body, dReal _cx, dReal _cy, dReal _cz, dReal _r, int _rn, int _zn){
+Tac_Sheet::Tac_Sheet(dWorldID _world, dSpaceID _space, dBodyID _fix_body, int _sheet_num, dReal _cx, dReal _cy, dReal _cz, dReal _r, int _rn, int _zn){
 
   // place tactile sensors along with cilinder surface
+  sheet_num = _sheet_num;
   center[0] = _cx; center[1] = _cy; center[2] = _cz;
   range = 0.005;
   r = _r - range/2.;
@@ -98,6 +99,15 @@ void Tac_Sheet::Draw_Sheet(){
 
     dsDrawLineD(Origin, End);
   }
+}
+
+void Tac_Sheet::Write_Data(std::ofstream& tac_out){
+  // todo implement timestamp
+  tac_out << sheet_num << " no_timestamp " << round_num << ' ' << axis_num;
+  for(int i=0; i<total_num; i++){
+    tac_out << tac_sensors[i].value[1] << ' ';
+  }
+  tac_out << std::endl;
 }
 
 bool Tac_Sheet::Callback(dGeomID o1, dGeomID o2){

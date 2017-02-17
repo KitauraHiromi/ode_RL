@@ -2,15 +2,13 @@
 #include <memory.h>
 #include <iostream>
 
-
-
-Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
+Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){  
   // robot configuration
   dof = DOF;
   angle_pitch = 60;
   dReal _ROM[DOF*2] = { -90, 90, -90, 90, -90, 90, -90, 90, -90, 90, -90, 90, -90, 90, -90, 90, -90, 90, -90, 90, -90, 90 };
   memcpy(ROM, _ROM, MEM_DOF*2);
-
+  
   // Rotation Matrix
   dReal angle_y = 90;
   dReal angle_x = 90;
@@ -146,15 +144,23 @@ Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
     dJointSetFixed(body_join_fix[j]);
 
   // Create a Tactile sensor
-  Right_Leg = new Tac_Sheet(world, space, link[0].body, x[0], y[0], z[0], r[0], 20, 10);
-  Left_Leg = new Tac_Sheet(world, space, link[1].body, x[1], y[1], z[1], r[1], 20, 10);
-  Right_Arm = new Tac_Sheet(world, space, link[2].body, x[2], y[2], z[2], r[2], 20, 10);
-  Left_Arm = new Tac_Sheet(world, space, link[3].body, x[3], y[3], z[3], r[3], 20, 10);
-  Upper_Trunk = new Tac_Sheet(world, space, link[4].body, x[4], y[4], z[4], r[4], 36, 10);
-  Lower_Trunk = new Tac_Sheet(world, space, link[5].body, x[5], y[5], z[5], r[5], 36, 10);
+  Right_Leg = new Tac_Sheet(world, space, link[0].body, 4, x[0], y[0], z[0], r[0], 20, 10);
+  Left_Leg = new Tac_Sheet(world, space, link[1].body, 5, x[1], y[1], z[1], r[1], 20, 10);
+  Right_Arm = new Tac_Sheet(world, space, link[2].body, 2, x[2], y[2], z[2], r[2], 20, 10);
+  Left_Arm = new Tac_Sheet(world, space, link[3].body, 3, x[3], y[3], z[3], r[3], 20, 10);
+  Upper_Trunk = new Tac_Sheet(world, space, link[4].body, 0, x[4], y[4], z[4], r[4], 36, 10);
+  Lower_Trunk = new Tac_Sheet(world, space, link[5].body, 1, x[5], y[5], z[5], r[5], 36, 10);
 }
 
 Baby_Robot1::~Baby_Robot1(){
+}
+
+void Baby_Robot1::Write_Pos(std::ofstream& ofs){
+  ofs << "no_timestamp ";
+  for(int i=0; i<DOF; i++){
+    ofs << ANGLE[i] << ' ';
+  }
+  ofs << std::endl;
 }
 
 void Baby_Robot1::Restrict_Angle(int i){

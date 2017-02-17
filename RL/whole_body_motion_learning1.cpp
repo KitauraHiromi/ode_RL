@@ -1,4 +1,4 @@
-#include "include/whole_body_motion_learning1.hpp"
+#include <include/whole_body_motion_learning1.hpp>
 #define ONE_ITER_LENGTH 10000
 #define FREQ 100
 #define SIGNAL_SPAN 10
@@ -7,6 +7,9 @@
 bool __VIEW__ = false;
 bool ITER_FINISH = false;
 int count, sum_count;  
+
+std::ofstream tac_out("tac.log");
+std::ofstream pos_out("pos.log");
 
 // TCP/IP communication
 Client client = Client();
@@ -68,24 +71,24 @@ void simLoop(int pause) {
     robot->Lower_Trunk->Draw_Sheet();
    
     if(count % FREQ == 0){
-      robot->Right_Arm->Set_Tactile_Values();
-      robot->Left_Arm->Set_Tactile_Values();
-      robot->Right_Leg->Set_Tactile_Values();
-      robot->Left_Leg->Set_Tactile_Values();
-      robot->Upper_Trunk->Set_Tactile_Values();
-      robot->Lower_Trunk->Set_Tactile_Values();
+      robot->Right_Arm->Set_Tactile_Values();   robot->Right_Arm->Write_Data(tac_out);
+      robot->Left_Arm->Set_Tactile_Values();    robot->Left_Arm->Write_Data(tac_out);
+      robot->Right_Leg->Set_Tactile_Values();   robot->Right_Leg->Write_Data(tac_out);
+      robot->Left_Leg->Set_Tactile_Values();    robot->Left_Leg->Write_Data(tac_out);
+      robot->Upper_Trunk->Set_Tactile_Values(); robot->Upper_Trunk->Write_Data(tac_out);
+      robot->Lower_Trunk->Set_Tactile_Values(); robot->Lower_Trunk->Write_Data(tac_out);
     }
     // todo 触覚の可視化
 
     
-    for (int i=0; i<robot->Upper_Trunk->axis_num; i++){
-      for (int j=0; j<robot->Upper_Trunk->round_num; j++){
-	dReal val = robot->Upper_Trunk->tac_sensors[i*robot->Upper_Trunk->round_num + j].value[1];
-	//if(val < 0.0001) val = 0;
-	std::cout << val << " ";
-      }
-      std::cout << std::endl; 
-    }
+    // for (int i=0; i<robot->Upper_Trunk->axis_num; i++){
+    //   for (int j=0; j<robot->Upper_Trunk->round_num; j++){
+    // 	dReal val = robot->Upper_Trunk->tac_sensors[i*robot->Upper_Trunk->round_num + j].value[1];
+    // 	//if(val < 0.0001) val = 0;
+    // 	std::cout << val << " ";
+    //   }
+    //   std::cout << std::endl; 
+    //}
     
 #endif
   }

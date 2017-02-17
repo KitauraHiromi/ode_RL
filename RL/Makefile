@@ -1,4 +1,4 @@
-INCLUDES = -I ../../include/ -I /usr/include/python2.7 -I include/ `pkg-config --cflags ode`
+INCLUDES = -I ../include/ -I ../../include/ -I /usr/include/python2.7 -I ./include/ `pkg-config --cflags ode`
 LIBS = /usr/local/lib/libdrawstuff.a -L/usr/lib/python2.7/config `pkg-config --libs ode`
 OPTS = -g -O0 -Wall -Wextra  -lglut -lGL -lGLU -lX11 -lXmu -lXi -lm -lboost_python -lpython2.7 -lpthread -DdDOUBLE -std=c++11
 CXX = g++

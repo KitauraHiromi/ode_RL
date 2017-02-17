@@ -4,7 +4,7 @@
 #include <ode/ode.h>
 #include <drawstuff/drawstuff.h>
 #include <cmath>
-#include "include/tactile_sensor.hpp"
+#include <include/tactile_sensor.hpp>
 
 #define NUM 7
 #define DOF 11
@@ -53,6 +53,7 @@ public:
   
   Baby_Robot1(dWorldID, dSpaceID);
   ~Baby_Robot1();
+  void Write_Pos(std::ofstream&);
   void Restrict_Angle(int);
   void Control();
   bool Is_Tactile(dGeomID);
