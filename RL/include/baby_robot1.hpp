@@ -53,7 +53,8 @@ public:
   
   Baby_Robot1(dWorldID, dSpaceID);
   ~Baby_Robot1();
-  void Write_Pos(std::ofstream&);
+  void Write_Pos(std::ofstream&, int);
+  void Write_Act(std::ofstream&, int);
   void Restrict_Angle(int);
   void Control();
   bool Is_Tactile(dGeomID);

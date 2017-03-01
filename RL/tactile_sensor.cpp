@@ -101,9 +101,11 @@ void Tac_Sheet::Draw_Sheet(){
   }
 }
 
-void Tac_Sheet::Write_Data(std::ofstream& tac_out){
-  // todo implement timestamp
-  tac_out << sheet_num << " no_timestamp " << round_num << ' ' << axis_num;
+void Tac_Sheet::Write_Data(std::ofstream& tac_out, int t){
+  tac_out << t << ' '
+	  << sheet_num << ' '
+	  << round_num << ' '
+	  << axis_num;
   for(int i=0; i<total_num; i++){
     tac_out << tac_sensors[i].value[1] << ' ';
   }

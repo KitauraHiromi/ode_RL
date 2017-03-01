@@ -155,13 +155,22 @@ Baby_Robot1::Baby_Robot1(dWorldID world, dSpaceID space){
 Baby_Robot1::~Baby_Robot1(){
 }
 
-void Baby_Robot1::Write_Pos(std::ofstream& ofs){
-  ofs << "no_timestamp ";
+void Baby_Robot1::Write_Pos(std::ofstream& ofs, int t){
+  ofs << t << ' ';
+  for(int i=0; i<DOF; i++){
+    ofs << dJointGetHingeAngle(joint[i]) << ' ';
+  }
+  ofs << std::endl;
+}
+
+void Baby_Robot1::Write_Act(std::ofstream& ofs, int t){
+  ofs << t << ' ';
   for(int i=0; i<DOF; i++){
     ofs << ANGLE[i] << ' ';
   }
   ofs << std::endl;
 }
+
 
 void Baby_Robot1::Restrict_Angle(int i){
   ANGLE[i] = std::max(ROM[2*i], ANGLE[i]);

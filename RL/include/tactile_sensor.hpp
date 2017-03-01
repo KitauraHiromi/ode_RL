@@ -37,7 +37,7 @@ public:
   void Get_Tactile_Values(std::vector<dReal> &values);
   void Set_Tactile_Values();
   void Set_Dist(int n, dReal dist);
-  void Write_Data(std::ofstream&);
+  void Write_Data(std::ofstream&, int);
   bool In_Sheet(dGeomID _geom);
   int Which_Tactile(dGeomID _geom);
   void Draw_Sheet();
